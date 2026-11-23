@@ -5,8 +5,7 @@ conexao = mysql.connector.connect(
     host="localhost",
     port=3306,
     user="root",
-    password="123456",
-    database="Palladares"
+    password="123456"
 )
 
 cursor = conexao.cursor()
@@ -21,10 +20,12 @@ for comando in sql.split(";"):
 
     if comando:
         cursor.execute(comando)
-        resultado = cursor.fetchall()
 
-        for linha in resultado:
-            print(linha)
+        # so busca resultado quando o comando retorna linhas (ex.: SELECT);
+        # CREATE/USE/INSERT nao retornam nada
+        if cursor.with_rows:
+            for linha in cursor.fetchall():
+                print(linha)
 
 conexao.commit()
 

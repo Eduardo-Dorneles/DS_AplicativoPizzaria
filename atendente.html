@@ -43,7 +43,38 @@
                     <h2>Novo pedido</h2>
                     <span class="texto-secundario">Escolha os produtos no cardápio e envie para a cozinha</span>
                 </div>
+<<<<<<< HEAD
                 <a class="botao-painel" href="index.html?origem=atendente#lanches">+ Anotar pedido no cardápio</a>
+=======
+
+                <form id="formPedido" class="formulario-pedido">
+                    <div class="campo-painel">
+                        <label for="clientePedido">Nome do cliente</label>
+                        <input id="clientePedido" type="text" placeholder="Ex.: Maria" required>
+                    </div>
+
+                    <div class="campo-painel">
+                        <label for="produtoPedido">Produto</label>
+                        <input id="produtoPedido" type="text" placeholder="Ex.: Pizza de Calabresa" required>
+                    </div>
+
+                    <div class="campo-painel">
+                        <label for="quantidadePedido">Quantidade</label>
+                        <input id="quantidadePedido" type="number" min="1" max="20" step="1" value="1" required>
+                    </div>
+
+                    <div class="campo-painel">
+                        <label for="mesaPedido">Mesa ou destino</label>
+                        <input id="mesaPedido" type="text" placeholder="Ex.: Mesa 03 ou Retirada" required>
+                    </div>
+
+                    <div class="campo-largo">
+                        <button class="botao-painel" type="submit">+ Registrar pedido</button>
+                    </div>
+                </form>
+
+                <p class="mensagem-login" id="mensagemPedido" hidden></p>
+>>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
             </section>
 
             <section class="painel-card">
