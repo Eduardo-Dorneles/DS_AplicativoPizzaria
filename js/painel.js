@@ -3,41 +3,7 @@
 // Pedidos, indicadores e permissões de cada perfil.
 // =====================================================
 
-<<<<<<< HEAD
 // Escolhe a cor da etiqueta de acordo com o andamento do pedido.
-=======
-// ----- ARMAZENAMENTO DOS PEDIDOS -----
-
-// Lê os pedidos do localStorage. Na primeira vez, cria os de exemplo.
-function buscarPedidos() {
-    const dadosSalvos = localStorage.getItem("palladares_pedidos");
-
-    if (dadosSalvos) {
-        return JSON.parse(dadosSalvos);
-    }
-
-    localStorage.setItem("palladares_pedidos", JSON.stringify(banco.pedidosIniciais));
-    return banco.pedidosIniciais;
-}
-
-// Grava a lista de pedidos no localStorage.
-function salvarPedidos(pedidos) {
-    localStorage.setItem("palladares_pedidos", JSON.stringify(pedidos));
-}
-
-// Calcula o próximo número de pedido.
-function proximoId(pedidos) {
-    let maior = 1000;
-
-    for (let i = 0; i < pedidos.length; i++) {
-        if (pedidos[i].id > maior) maior = pedidos[i].id;
-    }
-
-    return maior + 1;
-}
-
-// Devolve a classe CSS usada na etiqueta de status.
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function classeStatus(status) {
     if (status === "Em preparo") return "preparo";
     if (status === "Pronto" || status === "Entregue") return "pronto";
@@ -46,10 +12,7 @@ function classeStatus(status) {
 
 // ----- INDICADORES DO ADMINISTRADOR -----
 
-<<<<<<< HEAD
 // Atualiza os números e a lista do administrador usando os pedidos mais recentes.
-=======
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function atualizarAdministrador() {
     const pedidos = buscarPedidos();
 
@@ -94,10 +57,7 @@ function atualizarAdministrador() {
 
 // ----- COZINHA -----
 
-<<<<<<< HEAD
 // Mostra à cozinha os pedidos que ainda não foram entregues e o próximo passo de cada um.
-=======
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function atualizarCozinha() {
     const pedidos = buscarPedidos();
     const lista = document.getElementById("pedidosCozinha");
@@ -137,11 +97,7 @@ function atualizarCozinha() {
     }
 }
 
-<<<<<<< HEAD
 // Move o pedido para a próxima etapa para a equipe acompanhar o preparo.
-=======
-// Avança o status: Aguardando → Em preparo → Pronto.
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function avancarPedido(id) {
     const pedidos = buscarPedidos();
 
@@ -162,10 +118,7 @@ function avancarPedido(id) {
 
 // ----- ATENDIMENTO -----
 
-<<<<<<< HEAD
 // Atualiza a lista da atendente e oferece a entrega quando a cozinha marca como pronto.
-=======
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function atualizarAtendente() {
     const pedidos = buscarPedidos();
     const lista = document.getElementById("pedidosAtendente");
@@ -192,11 +145,7 @@ function atualizarAtendente() {
     }
 }
 
-<<<<<<< HEAD
 // Só registra a entrega depois que o pedido está pronto.
-=======
-// Marca o pedido como entregue.
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function entregarPedido(id) {
     const pedidos = buscarPedidos();
 
@@ -215,91 +164,9 @@ function entregarPedido(id) {
     }
 }
 
-<<<<<<< HEAD
 // ----- EDITAR E EXCLUIR PEDIDO -----
 
 // Permite corrigir o nome ou o destino sem precisar apagar e refazer o pedido.
-=======
-// ----- CADASTRO DE PEDIDO PELO ATENDENTE -----
-
-function cadastrarPedido(evento) {
-    evento.preventDefault();
-
-    const cliente = document.getElementById("clientePedido").value.trim();
-    const produto = document.getElementById("produtoPedido").value.trim();
-    const quantidade = Number(document.getElementById("quantidadePedido").value);
-    const mesa = document.getElementById("mesaPedido").value.trim();
-    const campoMensagem = document.getElementById("mensagemPedido");
-
-    // Validação 1: campos obrigatórios.
-    if (cliente === "" || produto === "" || mesa === "") {
-        mostrarMensagemPedido(campoMensagem, "Preencha cliente, produto e destino.", "erro");
-        return;
-    }
-
-    // Validação 2: quantidade precisa ser um número inteiro positivo.
-    if (!Number.isInteger(quantidade) || quantidade < 1) {
-        mostrarMensagemPedido(campoMensagem, "A quantidade deve ser um número inteiro maior que zero.", "erro");
-        return;
-    }
-
-    // Validação 3: limite de itens por pedido (regra da casa).
-    if (quantidade > 20) {
-        mostrarMensagemPedido(campoMensagem, "O limite é de 20 unidades por item em um único pedido.", "erro");
-        return;
-    }
-
-    const pedidos = buscarPedidos();
-
-    // Validação 4: evita pedido duplicado do mesmo cliente na mesma mesa.
-    for (let i = 0; i < pedidos.length; i++) {
-        const p = pedidos[i];
-
-        if (
-            p.cliente.toLowerCase() === cliente.toLowerCase() &&
-            p.mesa.toLowerCase() === mesa.toLowerCase() &&
-            p.produto.toLowerCase() === produto.toLowerCase() &&
-            p.status !== "Entregue"
-        ) {
-            mostrarMensagemPedido(campoMensagem, "Já existe um pedido igual em aberto para este cliente.", "erro");
-            return;
-        }
-    }
-
-    const novoPedido = {
-        id: proximoId(pedidos),
-        cliente: cliente,
-        produto: produto,
-        quantidade: quantidade,
-        mesa: mesa,
-        status: "Aguardando",
-        horario: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
-        total: 0
-    };
-
-    pedidos.push(novoPedido);
-    salvarPedidos(pedidos);
-
-    evento.target.reset();
-    document.getElementById("quantidadePedido").value = 1;
-
-    atualizarAtendente();
-    mostrarMensagemPedido(campoMensagem, "Pedido #" + novoPedido.id + " registrado e enviado para a cozinha.", "sucesso");
-}
-
-// Escreve uma mensagem de erro ou sucesso no formulário de pedido.
-function mostrarMensagemPedido(elemento, texto, tipo) {
-    if (!elemento) return;
-
-    elemento.textContent = texto;
-    elemento.className = "mensagem-login " + tipo;
-    elemento.hidden = false;
-}
-
-// ----- EDITAR E EXCLUIR PEDIDO -----
-
-// Abre a edição simples do cliente e do destino de um pedido.
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function editarPedido(id) {
     const pedidos = buscarPedidos();
 
@@ -327,11 +194,7 @@ function editarPedido(id) {
     }
 }
 
-<<<<<<< HEAD
 // Remove um pedido da lista, mas primeiro confirma a ação para evitar apagar por engano.
-=======
-// Exclui um pedido depois de pedir confirmação.
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function excluirPedido(id) {
     const confirmar = confirm("Deseja realmente excluir o pedido #" + id + "?");
     if (!confirmar) return;
@@ -350,10 +213,7 @@ function excluirPedido(id) {
 
 // ----- INICIALIZAÇÃO DE CADA PÁGINA -----
 
-<<<<<<< HEAD
 // Confere o acesso e prepara a tela certa para o perfil que entrou.
-=======
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 function iniciarPainel() {
     const pagina = document.body.dataset.pagina;
 
@@ -377,7 +237,6 @@ function iniciarPainel() {
     if (pagina === "adm") atualizarAdministrador();
     if (pagina === "cozinha") atualizarCozinha();
     if (pagina === "atendente") {
-<<<<<<< HEAD
         atualizarAtendente();
     }
 
@@ -392,12 +251,4 @@ function iniciarPainel() {
 }
 
 // Espera o HTML carregar antes de conferir o acesso e montar o painel.
-=======
-        const formulario = document.getElementById("formPedido");
-        if (formulario) formulario.addEventListener("submit", cadastrarPedido);
-        atualizarAtendente();
-    }
-}
-
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
 document.addEventListener("DOMContentLoaded", iniciarPainel);

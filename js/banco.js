@@ -134,7 +134,6 @@ const banco = {
         { nome: "atendente", senha: "1234", perfil: "Atendente" },
         { nome: "cozinha", senha: "1234", perfil: "Cozinheiro" }
     ]
-<<<<<<< HEAD
 };
 
 // Busca os pedidos já salvos. Se ainda não houver nenhum, usa os exemplos para a tela não começar vazia.
@@ -164,6 +163,3 @@ function proximoId(pedidos) {
 
     return maior + 1;
 }
-=======
-};
->>>>>>> b201a2d23691c18c54bb27515be5657edbc584ed
