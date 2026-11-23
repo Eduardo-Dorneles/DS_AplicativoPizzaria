@@ -7,10 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="css/painel.css">
+    <script src="js/banco.js" defer></script>
+    <script src="js/acesso.js" defer></script>
+    <script src="js/painel.js" defer></script>
 </head>
-<body class="painel-body">
+<body class="painel-body" data-pagina="atendente">
     <div class="painel-layout">
         <aside class="painel-sidebar">
             <div class="marca-painel">
@@ -20,48 +22,30 @@
             </div>
             <nav>
                 <p class="sidebar-titulo">Menu principal</p>
-                <a class="sidebar-link" href="adm.html">▦ &nbsp; Visão geral</a>
-                <a class="sidebar-link" href="cozinha.html">♨ &nbsp; Cozinha</a>
                 <a class="sidebar-link ativo" href="atendente.html">▤ &nbsp; Atendimento</a>
+                <a class="sidebar-link" href="index.html">☰ &nbsp; Cardápio</a>
                 <a class="sidebar-link" href="login.html" onclick="sairDoSistema(); return false;">↪ &nbsp; Sair</a>
             </nav>
             <div class="sidebar-rodape">Sistema de gestão • Palladares</div>
         </aside>
+
         <main class="painel-conteudo">
             <header class="painel-topo">
                 <div>
                     <h1>Painel de atendimento</h1>
                     <p>Registre novos pedidos e acompanhe as entregas.</p>
                 </div>
-                <div class="usuario-logado" id="nomeUsuario">Atendente</div>
+                <div class="usuario-logado" id="nomeUsuario">—</div>
             </header>
+
             <section class="painel-card">
                 <div class="card-cabecalho">
                     <h2>Novo pedido</h2>
-                    <span class="texto-secundario">O pedido será enviado para a cozinha</span>
+                    <span class="texto-secundario">Escolha os produtos no cardápio e envie para a cozinha</span>
                 </div>
-                <form id="formPedido" class="formulario-pedido">
-                    <div class="campo-painel">
-                        <label for="clientePedido">Nome do cliente</label>
-                        <input id="clientePedido" type="text" placeholder="Ex.: Maria" required>
-                    </div>
-                    <div class="campo-painel">
-                        <label for="produtoPedido">Produto / pedido</label>
-                        <input id="produtoPedido" type="text" placeholder="Ex.: Pizza de Calabresa" required>
-                    </div>
-                    <div class="campo-painel">
-                        <label for="quantidadePedido">Quantidade</label>
-                        <input id="quantidadePedido" type="number" min="1" value="1" required>
-                    </div>
-                    <div class="campo-painel">
-                        <label for="mesaPedido">Mesa ou destino</label>
-                        <input id="mesaPedido" type="text" placeholder="Ex.: Mesa 03 ou Retirada" required>
-                    </div>
-                    <div class="campo-largo">
-                        <button class="botao-painel" type="submit">+ Registrar pedido</button>
-                    </div>
-                </form>
+                <a class="botao-painel" href="index.html?origem=atendente#lanches">+ Anotar pedido no cardápio</a>
             </section>
+
             <section class="painel-card">
                 <div class="card-cabecalho">
                     <h2>Acompanhamento dos pedidos</h2>

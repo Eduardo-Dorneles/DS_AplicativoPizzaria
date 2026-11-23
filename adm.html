@@ -7,10 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="css/painel.css">
+    <script src="js/banco.js" defer></script>
+    <script src="js/acesso.js" defer></script>
+    <script src="js/painel.js" defer></script>
 </head>
-<body class="painel-body">
+<body class="painel-body" data-pagina="adm">
     <div class="painel-layout">
         <aside class="painel-sidebar">
             <div class="marca-painel">
@@ -23,18 +25,21 @@
                 <a class="sidebar-link ativo" href="adm.html">▦ &nbsp; Visão geral</a>
                 <a class="sidebar-link" href="cozinha.html">♨ &nbsp; Cozinha</a>
                 <a class="sidebar-link" href="atendente.html">▤ &nbsp; Atendimento</a>
+                <a class="sidebar-link" href="index.html">☰ &nbsp; Cardápio</a>
                 <a class="sidebar-link" href="login.html" onclick="sairDoSistema(); return false;">↪ &nbsp; Sair</a>
             </nav>
             <div class="sidebar-rodape">Sistema de gestão • Palladares</div>
         </aside>
+
         <main class="painel-conteudo">
             <header class="painel-topo">
                 <div>
                     <h1>Painel administrativo</h1>
                     <p>Visão geral da operação da Pizzaria Palladares.</p>
                 </div>
-                <div class="usuario-logado" id="nomeUsuario">Administrador</div>
+                <div class="usuario-logado" id="nomeUsuario">—</div>
             </header>
+
             <section class="grade-indicadores">
                 <article class="indicador">
                     <small>Total de pedidos</small>
@@ -57,10 +62,11 @@
                     <span>Aguardando entrega</span>
                 </article>
             </section>
+
             <section class="painel-card">
                 <div class="card-cabecalho">
                     <h2>Pedidos recentes</h2>
-                    <span class="texto-secundario">Atualização ao abrir a página</span>
+                    <span class="texto-secundario">Edite ou exclua pedidos registrados</span>
                 </div>
                 <div class="tabela-responsiva">
                     <table class="tabela-painel">
@@ -72,17 +78,19 @@
                                 <th>Qtd.</th>
                                 <th>Status</th>
                                 <th>Horário</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="listaPedidosAdm"></tbody>
                     </table>
                 </div>
             </section>
+
             <section class="painel-card">
                 <div class="card-cabecalho">
                     <h2>Áreas do sistema</h2>
                 </div>
-                <p class="texto-secundario">Acompanhe o trabalho da cozinha e do atendimento. Nesta versão, o painel demonstra o fluxo de pedidos; estoque, financeiro e relatórios ainda não estão implementados.</p>
+                <p class="texto-secundario">Acompanhe o trabalho da cozinha e do atendimento.</p>
                 <div class="pedido-acoes">
                     <a class="botao-painel" href="cozinha.html">Abrir cozinha</a>
                     <a class="botao-secundario" href="atendente.html">Abrir atendimento</a>

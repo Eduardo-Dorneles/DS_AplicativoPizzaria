@@ -7,10 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="css/painel.css">
+    <script src="js/banco.js" defer></script>
+    <script src="js/acesso.js" defer></script>
+    <script src="js/painel.js" defer></script>
 </head>
-<body class="painel-body">
+<body class="painel-body" data-pagina="cozinha">
     <div class="painel-layout">
         <aside class="painel-sidebar">
             <div class="marca-painel">
@@ -20,21 +22,22 @@
             </div>
             <nav>
                 <p class="sidebar-titulo">Menu principal</p>
-                <a class="sidebar-link" href="adm.html">▦ &nbsp; Visão geral</a>
                 <a class="sidebar-link ativo" href="cozinha.html">♨ &nbsp; Cozinha</a>
-                <a class="sidebar-link" href="atendente.html">▤ &nbsp; Atendimento</a>
+                <a class="sidebar-link" href="index.html">☰ &nbsp; Cardápio</a>
                 <a class="sidebar-link" href="login.html" onclick="sairDoSistema(); return false;">↪ &nbsp; Sair</a>
             </nav>
             <div class="sidebar-rodape">Sistema de gestão • Palladares</div>
         </aside>
+
         <main class="painel-conteudo">
             <header class="painel-topo">
                 <div>
                     <h1>Painel da cozinha</h1>
                     <p>Organize os pedidos e atualize o andamento do preparo.</p>
                 </div>
-                <div class="usuario-logado" id="nomeUsuario">Cozinha</div>
+                <div class="usuario-logado" id="nomeUsuario">—</div>
             </header>
+
             <section class="painel-card">
                 <div class="card-cabecalho">
                     <h2>Pedidos em andamento</h2>

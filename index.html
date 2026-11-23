@@ -1,729 +1,305 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzaria do Palladares</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    </head>
-    <body>
-<header class="topo" id="inicio">
-    <!-- Imagem de fundo da pizza -->
-    <img src="imgs/img_header/Pizzatopo.png" alt="Pizza de Pepperoni" class="imagem-topo">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cardapio.css">
+    <script src="js/banco.js" defer></script>
+    <script src="js/cardapio.js" defer></script>
+</head>
+<body>
+    <header class="topo" id="inicio">
+        <img src="imgs/img_header/Pizzatopo.png" alt="Pizza de Pepperoni" class="imagem-topo">
+        <div class="overlay-topo"></div>
 
-    <!-- Overlay escuro por cima da imagem -->
-    <div class="overlay-topo"></div>
-
-    <!-- Conteúdo do Topo -->
-    <div class="conteudo-topo">
-        <!-- Lado Esquerdo: Logo da Pizzaria -->
-        <div class="logo-area">
-            <h3 class="h3pizza">PIZZARIA</h3>
-            <h1 class="h1nomeres">Palladares</h1>
-            <span class="h4abertura">✦ DESDE 1998 ✦</span>
-        </div>
-
-        <!-- Lado Direito: Barra de Status e Informações -->
-        <div class="info-header-area">
-            <!-- Card de Status (Fechado/Aberto) -->
-            <div class="card-status-pedido">
-                <span class="icone-status"></span>
-                <div class="texto-status">
-                    <strong>Fechado para pedidos online</strong>
-                    <small>Veja os horários de funcionamento.</small>
-                </div>
+        <div class="conteudo-topo">
+            <div class="logo-area">
+                <h3 class="h3pizza">PIZZARIA</h3>
+                <h1 class="h1nomeres">Palladares</h1>
+                <span class="h4abertura">✦ DESDE 1998 ✦</span>
             </div>
 
-            <!-- Faixa de Informações Rápidas -->
-            <div class="bar-info-detalhes">
-                <div class="item-info">
-                    <span class="icone-info"></span>
-                    <div>
-                        <small>Av. das Quaresmeiras, 820</small>
-                        <small>Machados, Navegantes - SC</small>
+            <div class="info-header-area">
+                <div class="card-status-pedido">
+                    <div class="texto-status">
+                        <strong>Aberto para pedidos</strong>
+                        <small>Monte seu pedido e envie para a cozinha.</small>
                     </div>
                 </div>
-                <div class="item-info">
-                    <span class="icone-info"></span>
-                    <div>
-                        <small>(47) 3342-4152</small>
-                        <small>Telefone</small>
+
+                <div class="bar-info-detalhes">
+                    <div class="item-info">
+                        <div>
+                            <small>Av. das Quaresmeiras, 820</small>
+                            <small>Machados, Navegantes - SC</small>
+                        </div>
                     </div>
-                </div>
-                <div class="item-info">
-                    <span class="icone-info"></span>
-                    <div>
-                        <small>43 min - 18 min</small>
-                        <small>Tempo de entrega</small>
+                    <div class="item-info">
+                        <div>
+                            <small>(47) 3342-4152</small>
+                            <small>Telefone</small>
+                        </div>
                     </div>
-                </div>
-                <div class="item-info">
-                    <span class="icone-info"></span>
-                    <div>
-                        <small>Menu completo</small>
-                        <small class="link-menu">bit.ly/Pedidos_Palladares</small>
+                    <div class="item-info">
+                        <div>
+                            <small>43 min - 18 min</small>
+                            <small>Tempo de entrega</small>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <div>
+                            <a class="link-menu" href="login.html">Área do funcionário</a>
+                            <small>Acesso restrito</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
-            <main>
-                <div class="menu-total">
-                    <aside class="menu-lateral" aria-label="Menu de categorias">
-                        <nav class="navegacao-lateral">
-                            <a class="item-menu ativo" href="#inicio">
-                                <span class="icone-menu" aria-hidden="true">⌂</span>
-                                <span>Início</span>
-                            </a>
-                            <a class="item-menu" href="#lanches">
-                                <span class="icone-menu" aria-hidden="true">☰</span>
-                                <span>Lanches</span>
-                            </a>
-                            <a class="item-menu" href="#porcoes">
-                                <span class="icone-menu" aria-hidden="true">♨</span>
-                                <span>Porções</span>
-                            </a>
-                            <a class="item-menu" href="#pizzas">
-                                <span class="icone-menu" aria-hidden="true">◉</span>
-                                <span>Pizzas</span>
-                            </a>
-                            <a class="item-menu" href="#bebidas">
-                                <span class="icone-menu" aria-hidden="true">♧</span>
-                                <span>Bebidas</span>
-                            </a>
-                            <a class="item-menu" href="#bebidas-alcoolicas">
-                                <span class="icone-menu" aria-hidden="true">♧</span>
-                                <span>Bebidas alcoólicas</span>
-                            </a>
-                            <a class="item-menu" href="#sobremesas">
-                                <span class="icone-menu" aria-hidden="true">♢</span>
-                                <span>Sobremesas</span>
-                            </a>
-                            <a class="item-menu" href="#informacoes">
-                                <span class="icone-menu" aria-hidden="true">ⓘ</span>
-                                <span>Suporte</span>
-                            </a>
-                        </nav>
+    </header>
 
-                    </aside>
-                    <div class="menuPrincipal">
-            <div class="containerMenuCarrosel" id="lanches"> <!-- Lanches tradicionais -->
-                
-                <!-- Cabeçalho da Seção -->
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Hambúrguer">
-                    <div class="texto">
-                        <p class="tituloLanches">Lanches Tradicionais</p>
-                        <p class="subLanches">Uma explosão de sabores!</p>
+    <main>
+        <div class="menu-total">
+            <aside class="menu-lateral" aria-label="Menu de categorias">
+                <nav class="navegacao-lateral">
+                    <a class="item-menu ativo" href="#inicio"><span class="icone-menu" aria-hidden="true">⌂</span><span>Início</span></a>
+                    <a class="item-menu" href="#lanches"><span class="icone-menu" aria-hidden="true">☰</span><span>Lanches</span></a>
+                    <a class="item-menu" href="#porcoes"><span class="icone-menu" aria-hidden="true">♨</span><span>Porções</span></a>
+                    <a class="item-menu" href="#pizzas"><span class="icone-menu" aria-hidden="true">◉</span><span>Pizzas</span></a>
+                    <a class="item-menu" href="#bebidas"><span class="icone-menu" aria-hidden="true">♧</span><span>Bebidas</span></a>
+                    <a class="item-menu" href="#bebidas-alcoolicas"><span class="icone-menu" aria-hidden="true">♧</span><span>Bebidas alcoólicas</span></a>
+                    <a class="item-menu" href="#sobremesas"><span class="icone-menu" aria-hidden="true">♢</span><span>Sobremesas</span></a>
+                    <a class="item-menu" href="#informacoes"><span class="icone-menu" aria-hidden="true">ⓘ</span><span>Suporte</span></a>
+                </nav>
+            </aside>
+
+            <div class="menuPrincipal">
+                <div class="containerMenuCarrosel" id="lanches">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Hambúrguer">
+                        <div class="texto">
+                            <p class="tituloLanches">Lanches Tradicionais</p>
+                            <p class="subLanches">Uma explosão de sabores!</p>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Container do Carrossel com Botões -->
-                <div class="carrossel-container">
-                    <!-- Botão Anterior -->
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'lanches')" aria-label="Ver lanches anteriores">&#10094;</button>
-
-                    <!-- Fila com os Cards -->
-                    <div class="filaLanches" id="fila-lanches">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="X-Burguer">
-                            <p class="nomeLanche">X-Burguer</p>
-                            <p class="descricaoLanche">Pão, hambúrguer, presunto e queijo.</p>
-                            <p class="preçoHambuguer">R$ 15,00</p>
-                        </div>
-                        
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bacon.jpeg" alt="X Bacon">
-                            <p class="nomeLanche">X-Bacon</p>
-                            <p class="descricaoLanche">Pão, bacon e ovo, hambúrguer, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 29,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-salada.jpeg" alt="X Salada">
-                            <p class="nomeLanche">X-Salada</p>
-                            <p class="descricaoLanche">Pão, hambúrguer, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 19,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bauru.jpeg" alt="X Bauru">
-                            <p class="nomeLanche">X-Bauru</p>
-                            <p class="descricaoLanche">Pão, hambúrguer, presunto, queijo, alface e tomate.</p>
-                            <p class="preçoHambuguer">R$ 17,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-calabresa.jpeg" alt="X-Calabresa">
-                            <p class="nomeLanche">X-Calabresa</p>
-                            <p class="descricaoLanche">Pão, calabresa, hambúrguer, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 28,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-casa.jpeg" alt="X-Casa">
-                            <p class="nomeLanche">X-Casa</p>
-                            <p class="descricaoLanche">Pão, hambúrguer, frango, calabresa, bacon e ovo, presunto, queijo, alface, tomate, pepino, milho, ervilha, batata palha e fritas.</p>
-                            <p class="preçoHambuguer">R$ 54,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-coração.jpeg" alt="X-Coração">
-                            <p class="nomeLanche">X-Coração</p>
-                            <p class="descricaoLanche">Pão, coração, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 29,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-egg.jpeg" alt="X-Egg">
-                            <p class="nomeLanche">X-Egg</p>
-                            <p class="descricaoLanche">Pão, hambúrguer, ovo, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 22,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-frango.jpeg" alt="X-Frango">
-                            <p class="nomeLanche">X-Frango</p>
-                            <p class="descricaoLanche">Pão, frango, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 25,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-mignon.jpeg" alt="X-Mignon">
-                            <p class="nomeLanche">X-Mignon</p>
-                            <p class="descricaoLanche">Pão, carne, hambúrguer, presunto, queijo, alface, tomate, pepino, milho, ervilha e batata palha.</p>
-                            <p class="preçoHambuguer">R$ 35,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Misto Quente">
-                            <p class="nomeLanche">Misto Quente</p>
-                            <p class="descricaoLanche">Pão, presunto e queijo.</p>
-                            <p class="preçoHambuguer">R$ 13,00</p>
-                        </div>
-
-                    </div>
-                        <!-- Botão Próximo -->
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'lanches')" aria-label="Ver lanches anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-lanches"></div>
                         <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'lanches')" aria-label="Ver próximos lanches">&#10095;</button>
                     </div>
-                <!-- Script para controle de rolagem das setas -->
+                </div>
+
+                <div class="containerMenuCarrosel">
+                    <div class="cabecalhoLanches">
+                        <img class="boloIcon" src="imgs/icons/silhuetaBolo.png" alt="Ícone Bolo">
+                        <div class="texto">
+                            <p class="tituloLanches">Lanches Doces</p>
+                            <p class="subLanches">Uma explosão de sabores!</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'lancheDoces')" aria-label="Ver lanches anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-lancheDoces"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'lancheDoces')" aria-label="Ver próximos lanches doces">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerTiposdePorção" id="porcoes">
+                    <p class="tituloPorções">Tipos de Porções</p>
+                    <div class="divisãoDosTipos">
+                        <div class="carnes tipo-porcao" onclick="mostrarPorcao('carnes')">Carnes</div>
+                        <div class="frutosDoMar tipo-porcao" onclick="mostrarPorcao('frutosDoMar')">Frutos do Mar</div>
+                        <div class="fritas tipo-porcao" onclick="mostrarPorcao('fritas')">Fritas</div>
+                        <div class="mistas tipo-porcao" onclick="mostrarPorcao('mistas')">Mistas</div>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-carnes" style="display: none;">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Carnes">
+                        <div class="texto">
+                            <p class="tituloLanches">Carnes</p>
+                            <p class="subLanches">Para quem gosta de fartura!</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'carnes')" aria-label="Anterior">&#10094;</button>
+                        <div class="filaLanches" id="fila-carnes"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'carnes')" aria-label="Próximo">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-frutosDoMar" style="display: none;">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Frutos do Mar">
+                        <div class="texto">
+                            <p class="tituloLanches">Frutos do Mar</p>
+                            <p class="subLanches">Frescor do oceano!</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'frutosDoMar')" aria-label="Anterior">&#10094;</button>
+                        <div class="filaLanches" id="fila-frutosDoMar"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'frutosDoMar')" aria-label="Próximo">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-fritas" style="display: none;">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Fritas">
+                        <div class="texto">
+                            <p class="tituloLanches">Fritas</p>
+                            <p class="subLanches">Crocantes e irresistíveis!</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'fritas')" aria-label="Anterior">&#10094;</button>
+                        <div class="filaLanches" id="fila-fritas"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'fritas')" aria-label="Próximo">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-mistas" style="display: none;">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Mistas">
+                        <div class="texto">
+                            <p class="tituloLanches">Porções Mistas</p>
+                            <p class="subLanches">O melhor de tudo junto!</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'mistas')" aria-label="Anterior">&#10094;</button>
+                        <div class="filaLanches" id="fila-mistas"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'mistas')" aria-label="Próximo">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel" id="pizzas">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de pizza">
+                        <div class="texto">
+                            <p class="tituloLanches">Pizzas Tradicionais e Doces</p>
+                            <p class="subLanches">Em todas há orégano e azeitonas.</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'pizzas')" aria-label="Ver pizzas anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-pizzas"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'pizzas')" aria-label="Ver próximas pizzas">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel" id="pizzas-especiais">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de pizza especial">
+                        <div class="texto">
+                            <p class="tituloLanches">Pizzas Especiais, Tradicionais e Doces</p>
+                            <p class="subLanches">Em todas há orégano e azeitonas.</p>
+                        </div>
+                    </div>
+                    <p class="descricaoLanche">É obrigatório escolher pelo menos 1 sabor especial.</p>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'pizzasEspeciais')" aria-label="Ver pizzas especiais anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-pizzasEspeciais"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'pizzasEspeciais')" aria-label="Ver próximas pizzas especiais">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel" id="bebidas">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de bebidas">
+                        <div class="texto">
+                            <p class="tituloLanches">Bebidas sem álcool</p>
+                            <p class="subLanches">Refrigerantes, sucos e outras bebidas.</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'bebidas')" aria-label="Ver bebidas anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-bebidas"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'bebidas')" aria-label="Ver próximas bebidas">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel" id="bebidas-alcoolicas">
+                    <div class="cabecalhoLanches">
+                        <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de bebidas alcoólicas">
+                        <div class="texto">
+                            <p class="tituloLanches">Bebidas Alcoólicas</p>
+                            <p class="subLanches">Cervejas, caipirinhas e vinho.</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'bebidasAlcoolicas')" aria-label="Ver bebidas anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-bebidasAlcoolicas"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'bebidasAlcoolicas')" aria-label="Ver próximas bebidas">&#10095;</button>
+                    </div>
+                </div>
+
+                <div class="containerMenuCarrosel" id="sobremesas">
+                    <div class="cabecalhoLanches">
+                        <img class="boloIcon" src="imgs/icons/silhuetaBolo.png" alt="Ícone de sobremesas">
+                        <div class="texto">
+                            <p class="tituloLanches">Sobremesas</p>
+                            <p class="subLanches">Açaí na taça.</p>
+                        </div>
+                    </div>
+                    <div class="carrossel-container">
+                        <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'sobremesas')" aria-label="Ver sobremesas anteriores">&#10094;</button>
+                        <div class="filaLanches" id="fila-sobremesas"></div>
+                        <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'sobremesas')" aria-label="Ver próximas sobremesas">&#10095;</button>
+                    </div>
+                </div>
+
+                <footer class="containerMenuCarrosel" id="informacoes">
+                    <p class="tituloLanches">Suporte</p>
+                    <p class="descricaoLanche">FAÇA SEU APP VOCÊ TAMBÉM! (47) 9 9213-6417</p>
+                </footer>
             </div>
-            <div class="containerMenuCarrosel"> <!-- Lanches doces -->
-                
-                <!-- Cabeçalho da Seção -->
-                <div class="cabecalhoLanches">
-                    <img class="boloIcon"src="imgs/icons/silhuetaBolo.png" alt="Ícone Hambúrguer">
-                    <div class="texto">
-                        <p class="tituloLanches">Lanches Doces</p>
-                        <p class="subLanches">Uma explosão de sabores!</p>
-                    </div>
-                </div>
+        </div>
+    </main>
 
-                <!-- Container do Carrossel com Botões -->
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'lancheDoces')" aria-label="Ver lanches anteriores">&#10094;</button>
-
-                    <!-- Fila com os Cards -->
-                    <div class="filaLanches" id="fila-lancheDoces">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="X-Burguer">
-                            <p class="nomeLanche">X-Beijinho</p>
-                            <p class="descricaoLanche">Pão, chocolate branco, coco e queijo.</p>
-                            <p class="preçoHambuguer">R$ 24,00</p>
-                        </div>
-                        
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_lancheDoces/x-chocolate.jpeg" alt="X Bacon">
-                            <p class="nomeLanche">X-Chocolate</p>
-                            <p class="descricaoLanche">Pão, chocolate preto ou branco e queijo.</p>
-                            <p class="preçoHambuguer">R$ 22,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_lancheDoces/x-sensação.jpeg" alt="X Salada">
-                            <p class="nomeLanche">X-Sensação</p>
-                            <p class="descricaoLanche">Pão, chocolate preto ou branco, morango e queijo.</p>
-                            <p class="preçoHambuguer">R$ 26,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_lancheDoces/x-prestígio.jpeg" alt="X Bauru">
-                            <p class="nomeLanche">X-Prestígio</p>
-                            <p class="descricaoLanche">Pão, chocolate preto, coco e queijo.</p>
-                            <p class="preçoHambuguer">R$ 24,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_lancheDoces/x-doisAmores.jpeg" alt="X-Calabresa">
-                            <p class="nomeLanche">X-2 Amores</p>
-                            <p class="descricaoLanche">Pão, Queijo, Chocolate Preto, Chocolate Branco e Creme de Leite.</p>
-                            <p class="preçoHambuguer">R$ 22,00</p>
-                        </div>
-                    </div>
-
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'lancheDoces')" aria-label="Ver próximos lanches doces">&#10095;</button>
-                    </div>
+    <section class="resumo-carrinho recolhido" id="pedido" aria-labelledby="titulo-carrinho">
+        <div class="cabecalho-carrinho">
+            <div>
+                <h2 id="titulo-carrinho">Meu pedido</h2>
+                <p><span id="contadorItens">0</span> <span id="rotuloItens">itens no carrinho</span></p>
             </div>
-            <div class="containerTiposdePorção" id="porcoes"> <!--PORÇÕES-->
-                <p class="tituloPorções">Tipos de Porções</p>
-                <div class="divisãoDosTipos"> <!--Divisão dos tipos e DECISÃO-->
-                    <div class="carnes tipo-porcao" onclick="mostrarPorcao('carnes')">Carnes</div>
-                    <div class="frutosDoMar tipo-porcao" onclick="mostrarPorcao('frutosDoMar')">Frutos do Mar</div>
-                    <div class="fritas tipo-porcao" onclick="mostrarPorcao('fritas')">Fritas</div>
-                    <div class="mistas tipo-porcao" onclick="mostrarPorcao('mistas')">Mistas</div>
-                </div>
+            <div class="acoes-carrinho">
+                <strong class="total-compacto" id="totalCompacto">R$ 0,00</strong>
+                <button class="btn-alternar-carrinho" id="alternarCarrinho" type="button" aria-label="Expandir carrinho" aria-expanded="false">+</button>
+                <button class="btn-limpar" id="limparCarrinho" type="button">Limpar</button>
             </div>
+        </div>
 
-            <!-- CARROSSEL DE CARNES -->
-            <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-carnes" style="display: none;">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Carnes">
-                    <div class="texto">
-                        <p class="tituloLanches">Porções de Carnes</p>
-                        <p class="subLanches">Sabores intensos e saborosos!</p>
-                    </div>
-                </div>
+        <div class="corpo-carrinho" id="conteudoCarrinho">
+            <p class="carrinho-vazio" id="carrinhoVazio">Seu pedido ainda está vazio.</p>
+            <ul class="itens-carrinho" id="itensCarrinho" aria-live="polite"></ul>
 
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'carnes')" aria-label="Anterior">&#10094;</button>
-                    <div class="filaLanches" id="fila-carnes">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Calabresa">
-                            <p class="nomeLanche">Calabresa</p>
-                            <p class="descricaoLanche">Calabresa fatiada, alface, tomate, fritas e pão de alho.</p>
-                            <p class="preçoHambuguer">R$ 47,00</p>
-                        </div>
-                        
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bacon.jpeg" alt="Coração de Frango">
-                            <p class="nomeLanche">Coração de Frango</p>
-                            <p class="descricaoLanche">Coração, fritas, alface, tomate, cebola e pão de alho.</p>
-                            <p class="preçoHambuguer">R$ 55,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-salada.jpeg" alt="Frango à Passarinho">
-                            <p class="nomeLanche">Frango à Passarinho</p>
-                            <p class="descricaoLanche">Frango à passarinho, salada, farofa e fritas.</p>
-                            <p class="preçoHambuguer">R$ 59,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bauru.jpeg" alt="Frango Picado">
-                            <p class="nomeLanche">Frango Picado</p>
-                            <p class="descricaoLanche">Peito de frango em cubos, fritas, alface, tomate, pepino e pão de alho.</p>
-                            <p class="preçoHambuguer">R$ 49,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-calabresa.jpeg" alt="Porção de Carne">
-                            <p class="nomeLanche">Porção de Carne</p>
-                            <p class="descricaoLanche">Carne de alcatra em cubos, alface, tomate, ovo de codorna, palmito e pão de alho.</p>
-                            <p class="preçoHambuguer">R$ 65,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-casa.jpeg" alt="Bife Acebolado">
-                            <p class="nomeLanche">Bife Acebolado</p>
-                            <p class="descricaoLanche">Arroz, fritas, maionese, farofa, pão com queijo e salada.</p>
-                            <p class="preçoHambuguer">R$ 124,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-coração.jpeg" alt="Bife ao Alho e Óleo">
-                            <p class="nomeLanche">Bife ao Alho e Óleo</p>
-                            <p class="descricaoLanche">Arroz, fritas, maionese, farofa, pão com queijo e salada.</p>
-                            <p class="preçoHambuguer">R$ 124,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-egg.jpeg" alt="Contra Filé">
-                            <p class="nomeLanche">Contra Filé</p>
-                            <p class="descricaoLanche">Arroz, fritas, maionese, farofa, pão com queijo e salada.</p>
-                            <p class="preçoHambuguer">R$ 142,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-frango.jpeg" alt="Chuleta">
-                            <p class="nomeLanche">Chuleta</p>
-                            <p class="descricaoLanche">Arroz, fritas, maionese, farofa, pão com queijo e salada.</p>
-                            <p class="preçoHambuguer">R$ 117,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-mignon.jpeg" alt="Picanha na Chapa">
-                            <p class="nomeLanche">Picanha na Chapa</p>
-                            <p class="descricaoLanche">Arroz, fritas, maionese, farofa, pão com queijo e salada.</p>
-                            <p class="preçoHambuguer">R$ 163,00</p>
-                        </div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'carnes')" aria-label="Próximo">&#10095;</button>
-                </div>
-            </div>
-
-            <!-- CARROSSEL DE FRUTOS DO MAR -->
-            <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-frutosDoMar" style="display: none;">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Frutos do Mar">
-                    <div class="texto">
-                        <p class="tituloLanches">Frutos do Mar</p>
-                        <p class="subLanches">Frescor do oceano!</p>
-                    </div>
-                </div>
-
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'frutosDoMar')" aria-label="Anterior">&#10094;</button>
-                    <div class="filaLanches" id="fila-frutosDoMar">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Camarão Pequeno">
-                            <p class="nomeLanche">Camarão Pequeno à Milanesa</p>
-                            <p class="descricaoLanche">À milanesa.</p>
-                            <p class="preçoHambuguer">R$ 97,00</p>
-                        </div>
-                        
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bacon.jpeg" alt="Camarão Médio">
-                            <p class="nomeLanche">Camarão Médio à Milanesa</p>
-                            <p class="descricaoLanche">À milanesa.</p>
-                            <p class="preçoHambuguer">R$ 109,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-salada.jpeg" alt="Lula">
-                            <p class="nomeLanche">Porção de Lula</p>
-                            <p class="descricaoLanche"></p>
-                            <p class="preçoHambuguer">R$ 98,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bauru.jpeg" alt="Isca de Peixe">
-                            <p class="nomeLanche">Isca de Peixe</p>
-                            <p class="descricaoLanche"></p>
-                            <p class="preçoHambuguer">R$ 64,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-calabresa.jpeg" alt="Tilápia">
-                            <p class="nomeLanche">Tiras de Tilápia</p>
-                            <p class="descricaoLanche"></p>
-                            <p class="preçoHambuguer">R$ 102,00</p>
-                        </div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'frutosDoMar')" aria-label="Próximo">&#10095;</button>
-                </div>
+            <div class="totais-carrinho">
+                <div><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
+                <div class="total-pedido"><span>Total</span><strong id="total">R$ 0,00</strong></div>
             </div>
 
-            <!-- CARROSSEL DE FRITAS E ACOMPANHAMENTOS -->
-            <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-fritas" style="display: none;">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Fritas">
-                    <div class="texto">
-                        <p class="tituloLanches">Fritas e Acompanhamentos</p>
-                        <p class="subLanches">Perfeito para compartilhar!</p>
-                    </div>
-                </div>
+            <button class="botao-finalizar" id="finalizarPedido" type="button" disabled>Finalizar pedido</button>
 
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'fritas')" aria-label="Anterior">&#10094;</button>
-                    <div class="filaLanches" id="fila-fritas">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Fritas">
-                            <p class="nomeLanche">Fritas</p>
-                            <p class="descricaoLanche">Batata frita crocante e salgada.</p>
-                            <p class="preçoHambuguer">R$ 27,00</p>
-                        </div>
-                        
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bacon.jpeg" alt="Fritas com Queijo e Bacon">
-                            <p class="nomeLanche">Fritas com Queijo e Bacon</p>
-                            <p class="descricaoLanche">Fritas, queijo derretido, bacon e cebolinha.</p>
-                            <p class="preçoHambuguer">R$ 34,00</p>
-                        </div>
+            <form id="formFinalizar" class="form-finalizar" hidden>
+                <div class="campo-carrinho">
+                    <label id="rotuloClienteFinalizar" for="clienteFinalizar">Seu nome</label>
+                    <input id="clienteFinalizar" type="text" placeholder="Ex.: Maria" required>
+                </div>
+                <div class="campo-carrinho">
+                    <label for="mesaFinalizar">Mesa ou retirada</label>
+                    <input id="mesaFinalizar" type="text" placeholder="Ex.: Mesa 03 ou Retirada" required>
+                </div>
+                <button class="botao-finalizar" type="submit">Enviar para a cozinha</button>
+            </form>
 
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-salada.jpeg" alt="Fritas Premium">
-                            <p class="nomeLanche">Fritas com Queijo, Bacon, Cebolinha e Cheddar</p>
-                            <p class="descricaoLanche">Fritas, queijo, bacon, cebolinha e cheddar.</p>
-                            <p class="preçoHambuguer">R$ 38,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bauru.jpeg" alt="Fritas com Calabresa">
-                            <p class="nomeLanche">Fritas com Queijo, Bacon, Cebolinha e Calabresa</p>
-                            <p class="descricaoLanche">Fritas, queijo, bacon, cebolinha e calabresa.</p>
-                            <p class="preçoHambuguer">R$ 39,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-calabresa.jpeg" alt="Polenta">
-                            <p class="nomeLanche">Polenta</p>
-                            <p class="descricaoLanche">Polenta frita e crocante.</p>
-                            <p class="preçoHambuguer">R$ 22,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-casa.jpeg" alt="Polenta Premium">
-                            <p class="nomeLanche">Polenta com Queijo, Bacon e Cebolinha</p>
-                            <p class="descricaoLanche">Polenta frita, queijo, bacon e cebolinha.</p>
-                            <p class="preçoHambuguer">R$ 29,00</p>
-                        </div>
-
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-coração.jpeg" alt="Frios">
-                            <p class="nomeLanche">Porção de Frios</p>
-                            <p class="descricaoLanche">Queijo, ovos de codorna, pepino, palmito, azeitonas e salame.</p>
-                            <p class="preçoHambuguer">R$ 44,00</p>
-                        </div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'fritas')" aria-label="Próximo">&#10095;</button>
-                </div>
-            </div>
-
-            <!-- CARROSSEL DE MISTAS -->
-            <div class="containerMenuCarrosel carrossel-porcoes" id="carrossel-mistas" style="display: none;">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone Mistas">
-                    <div class="texto">
-                        <p class="tituloLanches">Porções Mistas</p>
-                        <p class="subLanches">O melhor de tudo junto!</p>
-                    </div>
-                </div>
-
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'mistas')" aria-label="Anterior">&#10094;</button>
-                    <div class="filaLanches" id="fila-mistas">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Mista Frutos do Mar">
-                            <p class="nomeLanche">Porção Mista - Frutos do Mar</p>
-                            <p class="descricaoLanche">Camarão, lula, ísca de peixe, bolinho de peixe, fritas, arroz, farofa, salada e molho.</p>
-                            <p class="preçoHambuguer">R$ 178,00</p>
-                        </div>
-                        
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-bacon.jpeg" alt="Mista Tradicional">
-                            <p class="nomeLanche">Porção Mista - Tradicional</p>
-                            <p class="descricaoLanche">Coração, frango, carne, calabresa, fritas, polenta, alface, tomate, ovo de codorna, pepino, palmito e farofa.</p>
-                            <p class="preçoHambuguer">R$ 146,00</p>
-                        </div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'mistas')" aria-label="Próximo">&#10095;</button>
-                </div>
-            </div>
-            
-            <!-- PIZZAS TRADICIONAIS -->
-            <div class="containerMenuCarrosel" id="pizzas">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de pizza">
-                    <div class="texto">
-                        <p class="tituloLanches">Pizzas Tradicionais e Doces</p>
-                        <p class="subLanches">Em todas há orégano e azeitonas.</p>
-                    </div>
-                </div>
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'pizzas')" aria-label="Ver pizzas anteriores">&#10094;</button>
-                    <div class="filaLanches" id="fila-pizzas">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Broto">
-                            <p class="nomeLanche">Pizza Broto</p>
-                            <p class="descricaoLanche">1 sabor, 4 fatias, 20 cm.</p>
-                            <p class="preçoHambuguer">R$ 32,90</p>
-                        </div>
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Pequena">
-                            <p class="nomeLanche">Pizza Pequena</p>
-                            <p class="descricaoLanche">2 sabores, 8 fatias, 30 cm.</p>
-                            <p class="preçoHambuguer">R$ 67,90</p>
-                        </div>
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Média">
-                            <p class="nomeLanche">Pizza Média</p>
-                            <p class="descricaoLanche">3 sabores, 12 fatias, 35 cm.</p>
-                            <p class="preçoHambuguer">R$ 87,90</p>
-                        </div>
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Grande">
-                            <p class="nomeLanche">Pizza Grande</p>
-                            <p class="descricaoLanche">4 sabores, 16 fatias, 40 cm.</p>
-                            <p class="preçoHambuguer">R$ 97,90</p>
-                        </div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'pizzas')" aria-label="Ver próximas pizzas">&#10095;</button>
-                </div>
-            </div>
-
-            <!-- PIZZAS ESPECIAIS -->
-            <div class="containerMenuCarrosel" id="pizzas-especiais">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de pizza especial">
-                    <div class="texto">
-                        <p class="tituloLanches">Pizzas Especiais, Tradicionais e Doces</p>
-                        <p class="subLanches">Em todas há orégano e azeitonas.</p>
-                    </div>
-                </div>
-                <p class="descricaoLanche">É obrigatório escolher pelo menos 1 sabor especial.</p>
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'pizzasEspeciais')" aria-label="Ver pizzas especiais anteriores">&#10094;</button>
-                    <div class="filaLanches" id="fila-pizzasEspeciais">
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Broto Especial">
-                            <p class="nomeLanche">Pizza Broto Especial</p>
-                            <p class="descricaoLanche">1 sabor, 4 fatias, 20 cm. Escolha pelo menos 1 sabor especial.</p>
-                            <p class="preçoHambuguer">R$ 38,90</p>
-                        </div>
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Pequena Especial">
-                            <p class="nomeLanche">Pizza Pequena Especial</p>
-                            <p class="descricaoLanche">2 sabores, 8 fatias, 30 cm. Escolha pelo menos 1 sabor especial.</p>
-                            <p class="preçoHambuguer">R$ 77,90</p>
-                        </div>
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Média Especial">
-                            <p class="nomeLanche">Pizza Média Especial</p>
-                            <p class="descricaoLanche">3 sabores, 12 fatias, 35 cm. Escolha pelo menos 1 sabor especial.</p>
-                            <p class="preçoHambuguer">R$ 97,90</p>
-                        </div>
-                        <div class="card">
-                            <img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Pizza Grande Especial">
-                            <p class="nomeLanche">Pizza Grande Especial</p>
-                            <p class="descricaoLanche">4 sabores, 16 fatias, 40 cm. Escolha pelo menos 1 sabor especial.</p>
-                            <p class="preçoHambuguer">R$ 107,90</p>
-                        </div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'pizzasEspeciais')" aria-label="Ver próximas pizzas especiais">&#10095;</button>
-                </div>
-            </div>
-
-            <!-- BEBIDAS SEM ÁLCOOL -->
-            <div class="containerMenuCarrosel" id="bebidas">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de bebidas">
-                    <div class="texto">
-                        <p class="tituloLanches">Bebidas sem álcool</p>
-                        <p class="subLanches">Refrigerantes, sucos e outras bebidas.</p>
-                    </div>
-                </div>
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'bebidas')" aria-label="Ver bebidas anteriores">&#10094;</button>
-                    <div class="filaLanches" id="fila-bebidas">
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Coca-Cola 2 litros"><p class="nomeLanche">Coca-Cola - 2L</p><p class="descricaoLanche">Refrigerante 2 litros.</p><p class="preçoHambuguer">R$ 19,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Fanta Laranja 2 litros"><p class="nomeLanche">Fanta Laranja - 2L</p><p class="descricaoLanche">Refrigerante 2 litros.</p><p class="preçoHambuguer">R$ 17,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Sprite 2 litros"><p class="nomeLanche">Sprite - 2L</p><p class="descricaoLanche">Refrigerante 2 litros.</p><p class="preçoHambuguer">R$ 17,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Guaraná 2 litros"><p class="nomeLanche">Guaraná - 2L</p><p class="descricaoLanche">Refrigerante 2 litros.</p><p class="preçoHambuguer">R$ 17,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco natural de abacaxi"><p class="nomeLanche">Suco Natural de Abacaxi</p><p class="descricaoLanche">Suco natural.</p><p class="preçoHambuguer">R$ 14,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco natural de abacaxi com hortelã"><p class="nomeLanche">Suco Natural de Abacaxi com Hortelã</p><p class="descricaoLanche">Suco natural.</p><p class="preçoHambuguer">R$ 14,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco natural de laranja"><p class="nomeLanche">Suco Natural de Laranja</p><p class="descricaoLanche">Suco natural.</p><p class="preçoHambuguer">R$ 14,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco natural de limão"><p class="nomeLanche">Suco Natural de Limão</p><p class="descricaoLanche">Suco natural.</p><p class="preçoHambuguer">R$ 14,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco natural de morango"><p class="nomeLanche">Suco Natural de Morango</p><p class="descricaoLanche">Suco natural.</p><p class="preçoHambuguer">R$ 14,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco de polpa de uva"><p class="nomeLanche">Suco Polpa de Uva</p><p class="descricaoLanche">Suco de polpa.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco de polpa de acerola"><p class="nomeLanche">Suco Polpa de Acerola</p><p class="descricaoLanche">Suco de polpa.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco de polpa de manga"><p class="nomeLanche">Suco Polpa de Manga</p><p class="descricaoLanche">Suco de polpa.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Suco de polpa de maracujá"><p class="nomeLanche">Suco Polpa de Maracujá</p><p class="descricaoLanche">Suco de polpa.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Energético Red Bull"><p class="nomeLanche">Energético Red Bull</p><p class="descricaoLanche">Bebida energética.</p><p class="preçoHambuguer">R$ 19,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Água sem gás 500 ml"><p class="nomeLanche">Água sem Gás</p><p class="descricaoLanche">Água sem gás 500 ml.</p><p class="preçoHambuguer">R$ 5,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Água com gás 500 ml"><p class="nomeLanche">Água com Gás</p><p class="descricaoLanche">Água com gás 500 ml.</p><p class="preçoHambuguer">R$ 6,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Água tônica 350 ml"><p class="nomeLanche">Água Tônica</p><p class="descricaoLanche">Água tônica 350 ml.</p><p class="preçoHambuguer">R$ 8,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="H2O 500 ml"><p class="nomeLanche">H²O</p><p class="descricaoLanche">H²O 500 ml.</p><p class="preçoHambuguer">R$ 8,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Coca-Cola lata 350 ml"><p class="nomeLanche">Coca-Cola Lata 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Guaraná lata 350 ml"><p class="nomeLanche">Guaraná Lata 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Fanta Uva lata 350 ml"><p class="nomeLanche">Fanta Uva Lata 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Fanta Laranja lata 350 ml"><p class="nomeLanche">Fanta Laranja Lata 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Sprite lata 350 ml"><p class="nomeLanche">Sprite Lata 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Schweppes lata 350 ml"><p class="nomeLanche">Schweppes Lata 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Guaraná 600 ml"><p class="nomeLanche">Guaraná 600ml</p><p class="descricaoLanche">Refrigerante 600 ml.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Fanta Laranja 600 ml"><p class="nomeLanche">Fanta Laranja 600ml</p><p class="descricaoLanche">Refrigerante 600 ml.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Sprite 600 ml"><p class="nomeLanche">Sprite 600ml</p><p class="descricaoLanche">Refrigerante 600 ml.</p><p class="preçoHambuguer">R$ 10,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Coca-Cola 600 ml"><p class="nomeLanche">Coca-Cola 600ml</p><p class="descricaoLanche">Refrigerante 600 ml.</p><p class="preçoHambuguer">R$ 12,00</p></div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'bebidas')" aria-label="Ver próximas bebidas">&#10095;</button>
-                </div>
-            </div>
-
-            <!-- BEBIDAS ALCOÓLICAS -->
-            <div class="containerMenuCarrosel" id="bebidas-alcoolicas">
-                <div class="cabecalhoLanches">
-                    <img src="imgs/icons/silhuetaHamburguer.png" alt="Ícone de bebidas alcoólicas">
-                    <div class="texto">
-                        <p class="tituloLanches">Bebidas Alcoólicas</p>
-                        <p class="subLanches">Cervejas, caipirinhas e vinho.</p>
-                    </div>
-                </div>
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'bebidasAlcoolicas')" aria-label="Ver bebidas anteriores">&#10094;</button>
-                    <div class="filaLanches" id="fila-bebidasAlcoolicas">
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Cerveja Original lata 350 ml"><p class="nomeLanche">Cerveja Original Lata - 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 8,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Cerveja Schin lata 350 ml"><p class="nomeLanche">Cerveja Schin Lata - 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 6,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Cerveja Skol lata 350 ml"><p class="nomeLanche">Cerveja Skol Lata - 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Cerveja Brahma lata 350 ml"><p class="nomeLanche">Cerveja Brahma Lata - 350ml</p><p class="descricaoLanche">Lata 350 ml.</p><p class="preçoHambuguer">R$ 7,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Budweiser Long Neck"><p class="nomeLanche">Cerveja Long Neck - Budweiser</p><p class="descricaoLanche">Long neck.</p><p class="preçoHambuguer">R$ 12,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Eisenbahn Long Neck"><p class="nomeLanche">Cerveja Long Neck - Eisenbahn</p><p class="descricaoLanche">Long neck.</p><p class="preçoHambuguer">R$ 12,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Heineken Long Neck"><p class="nomeLanche">Cerveja Long Neck - Heineken</p><p class="descricaoLanche">Long neck.</p><p class="preçoHambuguer">R$ 12,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Caipirinha de vinho"><p class="nomeLanche">Caipirinha de Vinho</p><p class="descricaoLanche">Caipirinha preparada com vinho.</p><p class="preçoHambuguer">R$ 28,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Caipirinha de vodka"><p class="nomeLanche">Caipirinha de Vodka</p><p class="descricaoLanche">Caipirinha preparada com vodka.</p><p class="preçoHambuguer">R$ 26,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Caipirinha de Bacardi"><p class="nomeLanche">Caipirinha de Bacardi</p><p class="descricaoLanche">Caipirinha preparada com Bacardi.</p><p class="preçoHambuguer">R$ 28,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Caipirinha de Steinhaeger"><p class="nomeLanche">Caipirinha de Steinhaeger</p><p class="descricaoLanche">Caipirinha preparada com Steinhaeger.</p><p class="preçoHambuguer">R$ 28,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Vinho seco garrafa"><p class="nomeLanche">Vinho Seco - Garrafa</p><p class="descricaoLanche">Garrafa.</p><p class="preçoHambuguer">R$ 68,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_trad/x-burguer.jpeg" alt="Vinho suave garrafa"><p class="nomeLanche">Vinho Suave - Garrafa</p><p class="descricaoLanche">Garrafa.</p><p class="preçoHambuguer">R$ 68,00</p></div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'bebidasAlcoolicas')" aria-label="Ver próximas bebidas">&#10095;</button>
-                </div>
-            </div>
-
-            <!-- SOBREMESAS -->
-            <div class="containerMenuCarrosel" id="sobremesas">
-                <div class="cabecalhoLanches">
-                    <img class="boloIcon" src="imgs/icons/silhuetaBolo.png" alt="Ícone de sobremesas">
-                    <div class="texto">
-                        <p class="tituloLanches">Sobremesas</p>
-                        <p class="subLanches">Açaí na taça.</p>
-                    </div>
-                </div>
-                <div class="carrossel-container">
-                    <button class="btn-carrossel btn-prev" onclick="rolarCarrossel('prev', 'sobremesas')" aria-label="Ver sobremesas anteriores">&#10094;</button>
-                    <div class="filaLanches" id="fila-sobremesas">
-                        <div class="card"><img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="Açaí na taça"><p class="nomeLanche">Açaí na Taça</p><p class="descricaoLanche">Somente açaí.</p><p class="preçoHambuguer">R$ 22,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="Açaí na taça ao leite"><p class="nomeLanche">Açaí na Taça ao Leite</p><p class="descricaoLanche">Açaí, leite Ninho e leite condensado.</p><p class="preçoHambuguer">R$ 26,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="Açaí na taça com banana"><p class="nomeLanche">Açaí na Taça com Banana</p><p class="descricaoLanche">Açaí, leite Ninho, leite condensado e banana.</p><p class="preçoHambuguer">R$ 27,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="Açaí na taça com morango"><p class="nomeLanche">Açaí na Taça com Morango</p><p class="descricaoLanche">Açaí, leite Ninho, leite condensado e morango.</p><p class="preçoHambuguer">R$ 29,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="Açaí na taça com frutas"><p class="nomeLanche">Açaí na Taça com Frutas</p><p class="descricaoLanche">Açaí, leite Ninho, leite condensado, morango, banana e granola.</p><p class="preçoHambuguer">R$ 32,00</p></div>
-                        <div class="card"><img src="imgs/img_menu/menu_lancheDoces/x-beijinho.jpeg" alt="Açaí na taça com paçoca"><p class="nomeLanche">Açaí na Taça com Paçoca</p><p class="descricaoLanche">Açaí, leite Ninho, leite condensado e paçoca.</p><p class="preçoHambuguer">R$ 27,00</p></div>
-                    </div>
-                    <button class="btn-carrossel btn-next" onclick="rolarCarrossel('next', 'sobremesas')" aria-label="Ver próximas sobremesas">&#10095;</button>
-                </div>
-            </div>
-
-            <footer class="containerMenuCarrosel" id="informacoes">
-                <p class="tituloLanches">Suporte</p>
-                <p class="descricaoLanche">FAÇA SEU APP VOCÊ TAMBÉM! (47) 9 9213-6417</p>
-            </footer>
-
-                </div>
-                </div>
-                
-            </main>
-            <!-- INÍCIO DA PARTE DO CARRINHO: painel flutuante visível durante a navegação. -->
-            <section class="resumo-carrinho recolhido" id="pedido" aria-labelledby="titulo-carrinho">
-                <div class="cabecalho-carrinho">
-                    <div>
-                        <h2 id="titulo-carrinho">Meu pedido</h2>
-                        <p><span id="contadorItens">0</span> <span id="rotuloItens">itens no carrinho</span></p>
-                    </div>
-                    <div class="acoes-carrinho">
-                        <strong class="total-compacto" id="totalCompacto">R$ 0,00</strong>
-                        <button class="btn-alternar-carrinho" id="alternarCarrinho" type="button" aria-label="Expandir carrinho" aria-expanded="false" aria-controls="conteudoCarrinho">+</button>
-                        <button class="btn-limpar" id="limparCarrinho" type="button">Limpar pedido</button>
-                    </div>
-                </div>
-                <div class="corpo-carrinho" id="conteudoCarrinho">
-                    <p class="carrinho-vazio" id="carrinhoVazio">Seu pedido ainda está vazio.</p>
-                    <ul class="itens-carrinho" id="itensCarrinho" aria-live="polite"></ul>
-                    <div class="totais-carrinho">
-                        <div><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
-                        <div class="total-pedido"><span>Total</span><strong id="total">R$ 0,00</strong></div>
-                    </div>
-                </div>
-            </section>
-            <!-- FIM DA PARTE DO CARRINHO: a estrutura do painel termina aqui. -->
-    </body>
+            <p class="mensagem-login" id="mensagemFinalizar" hidden></p>
+            <p id="voltarAtendimento" hidden><a href="atendente.html">Voltar para o painel de atendimento</a></p>
+        </div>
+    </section>
+</body>
 </html>

@@ -1,0 +1,634 @@
+/* =====================================================
+   PAINEL ADMINISTRATIVO — PALLADARES
+   ===================================================== */
+
+:root {
+    --cor-principal: #ff3838;
+    --cor-secundaria: #ffb838;
+    --cor-fundo: #111113;
+    --cor-fundo-medio: #181416;
+    --cor-fundo-escuro: #0e0e10;
+    --cor-painel: #1b1a1c;
+    --cor-painel-claro: #242124;
+    --cor-texto: #ffffff;
+    --cor-texto-suave: #aaa6a6;
+    --cor-texto-fraco: #777777;
+    --cor-borda: rgba(255, 255, 255, 0.08);
+    --cor-borda-forte: #393438;
+    --cor-sucesso: #63d69b;
+    --cor-erro: #ff7777;
+    --cor-erro-fundo: rgba(255, 56, 56, 0.14);
+    --cor-sucesso-fundo: rgba(55, 190, 120, 0.13);
+    --cor-aviso-fundo: rgba(255, 184, 56, 0.13);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.painel-body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(112, 30, 30, 0.13), transparent 30%),
+        linear-gradient(135deg, var(--cor-fundo), var(--cor-fundo-medio) 55%, var(--cor-fundo-escuro));
+    color: var(--cor-texto);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ----- LAYOUT ----- */
+.painel-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.painel-sidebar {
+    width: 245px;
+    padding: 28px 18px;
+    background: rgba(12, 12, 14, 0.94);
+    border-right: 1px solid var(--cor-borda);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.marca-painel {
+    margin: 0 0 35px;
+    text-align: center;
+}
+
+.marca-painel small {
+    color: #dddddd;
+    letter-spacing: 4px;
+    display: block;
+    font-size: 11px;
+}
+
+.marca-painel strong {
+    color: var(--cor-principal);
+    font-size: 27px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.marca-painel span {
+    color: var(--cor-secundaria);
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.sidebar-titulo {
+    color: var(--cor-texto-fraco);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin: 12px 10px;
+    text-transform: uppercase;
+}
+
+.sidebar-link {
+    display: block;
+    color: #c9c5c5;
+    text-decoration: none;
+    padding: 13px 14px;
+    border-radius: 9px;
+    margin: 4px 0;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.sidebar-link:hover,
+.sidebar-link.ativo {
+    color: var(--cor-texto);
+    background: linear-gradient(90deg, rgba(255, 56, 56, 0.22), rgba(255, 56, 56, 0.04));
+    border-left: 3px solid var(--cor-principal);
+}
+
+.sidebar-rodape {
+    margin-top: auto;
+    color: var(--cor-texto-fraco);
+    font-size: 12px;
+    padding: 12px;
+}
+
+.painel-conteudo {
+    flex: 1;
+    min-width: 0;
+    padding: 30px 38px;
+}
+
+.painel-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.painel-topo h1 {
+    font-size: 27px;
+    margin: 0 0 5px;
+}
+
+.painel-topo p,
+.texto-secundario {
+    color: var(--cor-texto-suave);
+    font-size: 13px;
+}
+
+.usuario-logado {
+    background: var(--cor-painel-claro);
+    border: 1px solid var(--cor-borda-forte);
+    border-radius: 30px;
+    padding: 10px 16px;
+    color: #eeeeee;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* ----- INDICADORES ----- */
+.grade-indicadores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.indicador,
+.painel-card {
+    background: linear-gradient(145deg, rgba(39, 35, 37, 0.95), rgba(25, 23, 25, 0.96));
+    border: 1px solid var(--cor-borda);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.13);
+}
+
+.indicador small {
+    color: var(--cor-texto-suave);
+    display: block;
+    margin-bottom: 12px;
+    font-size: 12px;
+}
+
+.indicador strong {
+    font-size: 27px;
+    color: var(--cor-texto);
+}
+
+.indicador span {
+    display: block;
+    color: var(--cor-secundaria);
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.painel-card {
+    margin-bottom: 20px;
+}
+
+.card-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+    flex-wrap: wrap;
+}
+
+.card-cabecalho h2 {
+    font-size: 17px;
+}
+
+/* ----- TABELAS ----- */
+.tabela-responsiva {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tabela-painel {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 620px;
+}
+
+.tabela-painel th {
+    color: var(--cor-texto-suave);
+    text-align: left;
+    font-weight: 500;
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--cor-borda-forte);
+    white-space: nowrap;
+}
+
+.tabela-painel td {
+    padding: 14px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: #e5e1e1;
+}
+
+.status {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 11px;
+    background: var(--cor-aviso-fundo);
+    color: var(--cor-secundaria);
+    white-space: nowrap;
+}
+
+.status.pronto,
+.status.entregue {
+    background: var(--cor-sucesso-fundo);
+    color: var(--cor-sucesso);
+}
+
+.status.preparo {
+    background: var(--cor-erro-fundo);
+    color: var(--cor-erro);
+}
+
+/* ----- BOTÕES ----- */
+.botao-painel,
+.botao-secundario {
+    display: inline-block;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: var(--cor-texto);
+    background: var(--cor-principal);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.botao-painel:hover {
+    background: #e62929;
+    transform: translateY(-1px);
+}
+
+.botao-secundario {
+    background: var(--cor-borda-forte);
+}
+
+.botao-tabela {
+    border: 1px solid var(--cor-borda-forte);
+    background: transparent;
+    color: var(--cor-texto);
+    border-radius: 6px;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-family: inherit;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.botao-tabela:hover {
+    background: var(--cor-painel-claro);
+}
+
+.botao-tabela.excluir {
+    border-color: rgba(255, 56, 56, 0.5);
+    color: var(--cor-erro);
+}
+
+.botao-tabela.excluir:hover {
+    background: var(--cor-erro-fundo);
+}
+
+/* ----- CARDS DE PEDIDO (COZINHA) ----- */
+.lista-pedidos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.pedido-card {
+    background: var(--cor-painel);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pedido-card h3 {
+    font-size: 15px;
+    color: var(--cor-secundaria);
+    margin-bottom: 4px;
+}
+
+.pedido-card p {
+    font-size: 13px;
+    color: #d5d1d1;
+    word-break: break-word;
+}
+
+.pedido-acoes {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* ----- FORMULÁRIOS ----- */
+.formulario-pedido {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.campo-painel {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-painel label {
+    color: #c9c4c5;
+    font-size: 13px;
+}
+
+.campo-painel input,
+.campo-painel select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #494145;
+    border-radius: 8px;
+    background: #151315;
+    color: var(--cor-texto);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.campo-painel input:focus,
+.campo-painel select:focus {
+    border-color: var(--cor-principal);
+}
+
+.campo-largo {
+    grid-column: 1 / -1;
+}
+
+/* ----- LOGIN ----- */
+.login-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+.login-caixa {
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(145deg, rgba(39, 35, 37, 0.97), rgba(25, 23, 25, 0.98));
+    border: 1px solid var(--cor-borda);
+    border-radius: 18px;
+    padding: 32px 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.login-caixa h1 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.login-caixa .texto-secundario {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-caixa .campo-painel {
+    margin-bottom: 16px;
+}
+
+.login-caixa .botao-painel {
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+}
+
+.aviso-demo {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 8px;
+    background: rgba(255, 184, 56, 0.08);
+    color: #d6b978;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.mensagem-login {
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.mensagem-login.erro {
+    background: var(--cor-erro-fundo);
+    color: var(--cor-erro);
+    border: 1px solid rgba(255, 56, 56, 0.4);
+}
+
+.mensagem-login.sucesso {
+    background: var(--cor-sucesso-fundo);
+    color: var(--cor-sucesso);
+    border: 1px solid rgba(55, 190, 120, 0.4);
+}
+
+.mensagem-vazia {
+    color: var(--cor-texto-suave);
+    text-align: center;
+    padding: 25px;
+    font-size: 13px;
+}
+
+.link-menu {
+    color: var(--cor-texto-suave);
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+/* =====================================================
+   RESPONSIVIDADE
+   ===================================================== */
+
+@media (max-width: 1000px) {
+    .grade-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .painel-conteudo {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 700px) {
+    .painel-layout {
+        display: block;
+    }
+
+    .painel-sidebar {
+        width: 100%;
+        padding: 14px;
+        border-right: 0;
+        border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .marca-painel {
+        margin: 0 0 12px;
+    }
+
+    .marca-painel strong {
+        font-size: 22px;
+    }
+
+    .painel-sidebar nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .sidebar-titulo,
+    .sidebar-rodape {
+        display: none;
+    }
+
+    .sidebar-link {
+        padding: 9px 11px;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .painel-conteudo {
+        padding: 18px 14px;
+    }
+
+    .painel-topo {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .painel-topo h1 {
+        font-size: 21px;
+    }
+
+    .usuario-logado {
+        font-size: 12px;
+        padding: 8px 13px;
+    }
+
+    .lista-pedidos,
+    .formulario-pedido {
+        grid-template-columns: 1fr;
+    }
+
+    .grade-indicadores {
+        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .indicador {
+        padding: 14px;
+    }
+
+    .indicador strong {
+        font-size: 22px;
+    }
+
+    .indicador small,
+    .indicador span {
+        font-size: 11px;
+    }
+
+    .painel-card {
+        padding: 16px;
+    }
+
+    .card-cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-pagina {
+        padding: 16px 12px;
+    }
+
+    .login-caixa {
+        padding: 24px 18px;
+        border-radius: 14px;
+    }
+
+    .login-caixa h1 {
+        font-size: 19px;
+    }
+
+    .grade-indicadores {
+        grid-template-columns: 1fr;
+    }
+
+    .indicador {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+
+    .indicador small {
+        margin-bottom: 0;
+    }
+
+    .indicador strong {
+        font-size: 20px;
+    }
+
+    .indicador span {
+        display: none;
+    }
+
+    .painel-conteudo {
+        padding: 14px 10px;
+    }
+
+    .painel-card {
+        padding: 14px 12px;
+        border-radius: 10px;
+    }
+
+    .botao-painel,
+    .botao-secundario {
+        width: 100%;
+        text-align: center;
+    }
+
+    .pedido-acoes .botao-painel {
+        width: 100%;
+    }
+
+    .tabela-painel {
+        min-width: 560px;
+        font-size: 12px;
+    }
+
+    .tabela-painel th,
+    .tabela-painel td {
+        padding: 10px 8px;
+    }
+}
