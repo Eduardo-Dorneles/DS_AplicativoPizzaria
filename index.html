@@ -287,7 +287,7 @@
 
             <form id="formFinalizar" class="form-finalizar" hidden>
                 <div class="campo-carrinho">
-                    <label for="clienteFinalizar">Seu nome</label>
+                    <label id="rotuloClienteFinalizar" for="clienteFinalizar">Seu nome</label>
                     <input id="clienteFinalizar" type="text" placeholder="Ex.: Maria" required>
                 </div>
                 <div class="campo-carrinho">
@@ -298,7 +298,35 @@
             </form>
 
             <p class="mensagem-login" id="mensagemFinalizar" hidden></p>
+            <p id="voltarAtendimento" hidden><a href="atendente.html">Voltar para o painel de atendimento</a></p>
         </div>
     </section>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, collection, addDoc, onSnapshot,
+    doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCVPhX343KNSZgi4fp_WlBsBLohFowWXRQ",
+    authDomain: "pizzaria-web-5541b.firebaseapp.com",
+    projectId: "pizzaria-web-5541b",
+    storageBucket: "pizzaria-web-5541b.firebasestorage.app",
+    messagingSenderId: "981557780197",
+    appId: "1:981557780197:web:d883c790d9f2d994f6fe0c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.db = db;
+  window.fb = {
+    collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc,
+    query, orderBy, serverTimestamp
+  };
+
+  console.log("Firebase conectado:", firebaseConfig.projectId);
+</script>
 </body>
 </html>

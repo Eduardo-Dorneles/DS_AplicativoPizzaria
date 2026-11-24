@@ -9,7 +9,7 @@ const carrinho = [];
 
 // ----- MONTAGEM DO CARDÁPIO -----
 
-// Cria os cards de todas as categorias do banco.
+// Desenha os produtos na página a partir do banco, evitando manter uma lista diferente no HTML.
 function carregarCardapio() {
     const categorias = Object.keys(banco);
 
@@ -40,10 +40,12 @@ function carregarCardapio() {
 
 // ----- NAVEGAÇÃO DO MENU LATERAL -----
 
+// Liga os links das categorias ao destaque que mostra a seção selecionada.
 function iniciarMenuLateral() {
     const itensMenu = document.querySelectorAll(".item-menu");
 
     for (let i = 0; i < itensMenu.length; i++) {
+        // Deixa marcada a seção escolhida para a pessoa saber onde está no cardápio.
         itensMenu[i].addEventListener("click", function () {
             for (let j = 0; j < itensMenu.length; j++) {
                 itensMenu[j].classList.remove("ativo");
@@ -55,7 +57,7 @@ function iniciarMenuLateral() {
 
 // ----- CARROSSÉIS -----
 
-// Rola a fila de cards para a esquerda ou para a direita.
+// Desloca a fileira de produtos para dar acesso aos cards que ficaram fora da tela.
 function rolarCarrossel(direcao, tipo) {
     const fila = document.getElementById("fila-" + tipo);
     if (!fila) return;
@@ -66,7 +68,7 @@ function rolarCarrossel(direcao, tipo) {
     fila.scrollBy({ left: deslocamento, behavior: "smooth" });
 }
 
-// Mostra o carrossel de porções escolhido e esconde os outros.
+// Exibe só o tipo de porção escolhido, assim a página não fica com várias listas abertas.
 function mostrarPorcao(tipo) {
     const carrosseis = document.querySelectorAll(".carrossel-porcoes");
 
@@ -94,7 +96,7 @@ function mostrarPorcao(tipo) {
 
 // ----- CARRINHO -----
 
-// Prepara os botões + de cada card e liga os eventos do carrinho.
+// Coloca os controles nos produtos e conecta os cliques e mudanças ao carrinho.
 function iniciarCarrinho() {
     const cards = document.querySelectorAll(".card");
 
@@ -118,6 +120,7 @@ function iniciarCarrinho() {
 
     const menu = document.querySelector(".menuPrincipal");
 
+    // Um único listener no menu trata os botões dos produtos e os de remover do carrinho.
     menu.addEventListener("click", function (evento) {
         const botao = evento.target.closest("button[data-acao]");
         if (!botao) return;
@@ -130,6 +133,7 @@ function iniciarCarrinho() {
         }
     });
 
+    // Atualiza o carrinho quando a pessoa muda a quantidade pelo campo numérico.
     document.getElementById("itensCarrinho").addEventListener("change", function (evento) {
         if (!evento.target.matches(".quantidade-carrinho")) return;
 
@@ -146,7 +150,7 @@ function iniciarCarrinho() {
     atualizarResumo();
 }
 
-// Recolhe ou expande o painel do carrinho.
+// Abre ou recolhe o carrinho para ele não ocupar espaço quando não estiver em uso.
 function alternarCarrinho() {
     const painel = document.getElementById("pedido");
     const botao = document.getElementById("alternarCarrinho");
@@ -156,18 +160,18 @@ function alternarCarrinho() {
     botao.setAttribute("aria-expanded", String(!recolhido));
 }
 
-// Converte "R$ 20,00" no número 20.
+// Transforma o preço que aparece na tela em número, para permitir somar os itens.
 function lerPreco(textoPreco) {
     const numero = textoPreco.replace(/[^\d,]/g, "").replace(",", ".");
     return Number(numero);
 }
 
-// Formata um número como moeda brasileira.
+// Mostra os valores no padrão de reais usado no cardápio e no resumo.
 function formatarMoeda(valor) {
     return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-// Adiciona um produto ao carrinho ou aumenta a quantidade.
+// Inclui o produto escolhido; se ele já estiver no carrinho, aumenta a quantidade.
 function adicionarProduto(card) {
     const nome = card.querySelector(".nomeLanche").textContent.trim();
     const preco = lerPreco(card.querySelector(".preçoHambuguer").textContent);
@@ -184,7 +188,7 @@ function adicionarProduto(card) {
     atualizarResumo();
 }
 
-// Altera a quantidade de um item. Zero ou menos remove o item.
+// Mantém a quantidade do carrinho igual à que foi digitada; zero remove o produto.
 function atualizarQuantidade(nome, preco, quantidade) {
     for (let i = 0; i < carrinho.length; i++) {
         if (carrinho[i].nome === nome && carrinho[i].preco === preco) {
@@ -199,7 +203,7 @@ function atualizarQuantidade(nome, preco, quantidade) {
     }
 }
 
-// Remove um item do carrinho.
+// Retira do pedido o produto selecionado no botão Remover.
 function removerProduto(nome, preco) {
     for (let i = 0; i < carrinho.length; i++) {
         if (carrinho[i].nome === nome && carrinho[i].preco === preco) {
@@ -210,13 +214,13 @@ function removerProduto(nome, preco) {
     }
 }
 
-// Esvazia o carrinho.
+// Limpa tudo para a pessoa poder começar o pedido novamente.
 function limparCarrinho() {
     carrinho.length = 0;
     atualizarResumo();
 }
 
-// Redesenha a lista, o contador e os valores do carrinho.
+// Atualiza os itens, as quantidades e os totais para a tela acompanhar o carrinho.
 function atualizarResumo() {
     const lista = document.getElementById("itensCarrinho");
     const contador = document.getElementById("contadorItens");
@@ -283,7 +287,7 @@ function atualizarResumo() {
 
 // ----- FINALIZAÇÃO DO PEDIDO -----
 
-// Mostra o formulário de cliente e mesa.
+// Só pede nome e destino depois que já existe algo para pedir.
 function abrirFormularioPedido() {
     if (carrinho.length === 0) {
         alert("Adicione pelo menos um produto ao pedido.");
@@ -295,7 +299,7 @@ function abrirFormularioPedido() {
     document.getElementById("clienteFinalizar").focus();
 }
 
-// Grava o pedido no localStorage e limpa o carrinho.
+// Confere os dados, monta o pedido completo e salva; assim ele aparece nos painéis da equipe.
 function finalizarPedido(evento) {
     evento.preventDefault();
 
@@ -321,11 +325,13 @@ function finalizarPedido(evento) {
 
     const pedidos = buscarPedidos();
     let total = 0;
+    let quantidadeTotal = 0;
     let descricaoProdutos = "";
 
     // Monta a descrição dos produtos e soma o total.
     for (let i = 0; i < carrinho.length; i++) {
         total += carrinho[i].preco * carrinho[i].quantidade;
+        quantidadeTotal += carrinho[i].quantidade;
 
         if (i > 0) descricaoProdutos += ", ";
         descricaoProdutos += carrinho[i].quantidade + "x " + carrinho[i].nome;
@@ -335,7 +341,7 @@ function finalizarPedido(evento) {
         id: proximoId(pedidos),
         cliente: cliente,
         produto: descricaoProdutos,
-        quantidade: carrinho.length,
+        quantidade: quantidadeTotal,
         mesa: mesa,
         status: "Aguardando",
         horario: new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
@@ -358,11 +364,19 @@ function finalizarPedido(evento) {
 
 // ----- INICIALIZAÇÃO -----
 
+// Espera o HTML ficar pronto antes de montar o cardápio e ligar os controles.
 document.addEventListener("DOMContentLoaded", function () {
     carregarCardapio();
     iniciarMenuLateral();
     mostrarPorcao("carnes");
     iniciarCarrinho();
+
+    const pedidoDaAtendente = new URLSearchParams(window.location.search).get("origem") === "atendente";
+    if (pedidoDaAtendente) {
+        document.getElementById("titulo-carrinho").textContent = "Pedido do cliente";
+        document.getElementById("rotuloClienteFinalizar").textContent = "Nome do cliente";
+        document.getElementById("voltarAtendimento").hidden = false;
+    }
 
     const formulario = document.getElementById("formFinalizar");
     if (formulario) formulario.addEventListener("submit", finalizarPedido);

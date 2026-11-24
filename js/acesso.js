@@ -9,7 +9,7 @@ const CHAVE_USUARIO = "palladares_usuario";
 
 // ----- LEITURA E GRAVAÇÃO DA SESSÃO -----
 
-// Devolve o usuário logado ou null se ninguém estiver logado.
+// Recupera quem está usando o sistema; se a sessão estiver vazia ou quebrada, considera que ninguém entrou.
 function lerUsuario() {
     const texto = localStorage.getItem(CHAVE_USUARIO);
     if (!texto) return null;
@@ -23,14 +23,14 @@ function lerUsuario() {
     }
 }
 
-// Guarda o usuário logado no localStorage.
+// Mantém a sessão entre as páginas para não pedir login a cada troca de painel.
 function salvarUsuario(usuario) {
     localStorage.setItem(CHAVE_USUARIO, JSON.stringify(usuario));
 }
 
 // ----- LOGIN -----
 
-// Confere nome e senha na lista de usuários do banco.
+// Compara os dados digitados com os usuários de demonstração cadastrados no banco.
 function conferirCredenciais(nome, senha) {
     for (let i = 0; i < banco.usuarios.length; i++) {
         const usuario = banco.usuarios[i];
@@ -41,7 +41,7 @@ function conferirCredenciais(nome, senha) {
     return null;
 }
 
-// Devolve o nome da página inicial de cada perfil.
+// Escolhe o painel inicial de acordo com o trabalho de cada pessoa.
 function paginaDoPerfil(perfil) {
     if (perfil === "Administrador") return "adm.html";
     if (perfil === "Atendente") return "atendente.html";
@@ -51,8 +51,7 @@ function paginaDoPerfil(perfil) {
 
 // ----- PROTEÇÃO DAS PÁGINAS -----
 
-// Verifica se o usuário logado pode abrir a página atual.
-// perfilPermitido é o perfil que aquela página aceita.
+// Confere se a sessão pode abrir este painel; o administrador pode acessar todos.
 function protegerPagina(perfilPermitido) {
     const usuario = lerUsuario();
 
@@ -71,7 +70,7 @@ function protegerPagina(perfilPermitido) {
     return usuario;
 }
 
-// Mostra o nome e o perfil no canto superior das telas internas.
+// Identifica no painel quem está conectado, para evitar confusão entre os perfis.
 function mostrarUsuarioNaTela(usuario) {
     const elemento = document.getElementById("nomeUsuario");
     if (elemento && usuario) {
@@ -81,18 +80,17 @@ function mostrarUsuarioNaTela(usuario) {
 
 // ----- SAIR -----
 
-// Encerra a sessão e volta para o login.
-// O replace() impede que o botão Voltar reabra a página interna.
+// Encerra a sessão e troca a página sem deixar o botão Voltar reabrir o painel.
 function sairDoSistema() {
     localStorage.removeItem(CHAVE_USUARIO);
     window.location.replace("login.html");
 }
 
-// Impede que o botão Voltar do navegador mostre uma página
-// interna depois que o usuário saiu.
+// Cuida do botão Voltar: depois de sair, a pessoa não deve voltar a uma tela protegida.
 function bloquearBotaoVoltar() {
     window.history.pushState(null, "", window.location.href);
 
+    // Se a sessão terminou, manda para o login; caso contrário, mantém a navegação no painel.
     window.addEventListener("popstate", function () {
         if (!lerUsuario()) {
             window.location.replace("login.html");
@@ -104,7 +102,7 @@ function bloquearBotaoVoltar() {
 
 // ----- TELA DE LOGIN -----
 
-// Liga o formulário de login quando ele existe na página.
+// Prepara o login apenas nas páginas que têm esse formulário e leva cada pessoa ao painel certo.
 function iniciarLogin() {
     const formulario = document.getElementById("formLogin");
     if (!formulario) return;
@@ -118,6 +116,7 @@ function iniciarLogin() {
         return;
     }
 
+    // Valida o que foi digitado antes de guardar a sessão e abrir um painel.
     formulario.addEventListener("submit", function (evento) {
         evento.preventDefault();
 
@@ -148,13 +147,14 @@ function iniciarLogin() {
         salvarUsuario({ nome: usuario.nome, perfil: usuario.perfil });
         mostrarMensagem(campoMensagem, "Acesso liberado. Abrindo o painel...", "sucesso");
 
+        // Dá tempo para a mensagem de acesso liberado aparecer antes da troca de página.
         setTimeout(function () {
             window.location.href = paginaDoPerfil(usuario.perfil);
         }, 600);
     });
 }
 
-// Escreve uma mensagem de erro ou sucesso na tela de login.
+// Mostra o retorno da validação no próprio formulário, sem tirar a pessoa da tela.
 function mostrarMensagem(elemento, texto, tipo) {
     if (!elemento) return;
 
@@ -163,4 +163,5 @@ function mostrarMensagem(elemento, texto, tipo) {
     elemento.hidden = false;
 }
 
+// Só procura o formulário de login depois que a página terminou de carregar.
 document.addEventListener("DOMContentLoaded", iniciarLogin);
