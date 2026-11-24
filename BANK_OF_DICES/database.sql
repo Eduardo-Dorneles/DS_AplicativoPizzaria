@@ -5,14 +5,45 @@ DROP DATABASE IF EXISTS Palladares;
 CREATE DATABASE Palladares;
 USE Palladares;
 
+-- TABELA DE CODIGOS (o que cada numero quer dizer)
+--
+-- coluna            | codigo | significado
+-- ------------------+--------+----------------------
+-- cargo_func        |   1    | Administrador
+--                   |   2    | Atendente
+--                   |   3    | Cozinheiro
+-- ------------------+--------+----------------------
+-- categoria_prod    |   1    | Lanches Tradicionais
+--                   |   2    | Lanches Doces
+--                   |   3    | Pizzas
+--                   |   4    | Porcoes
+--                   |   5    | Bebidas
+--                   |   6    | Sobremesas
+-- ------------------+--------+----------------------
+-- tipo_compra       |   1    | Entrega
+--                   |   2    | Retirada
+-- ------------------+--------+----------------------
+-- status_compra     |   1    | Recebido
+--                   |   2    | Confirmado
+--                   |   3    | Em preparacao
+--                   |   4    | Pronto
+--                   |   5    | Saiu para entrega
+--                   |   6    | Aguardando retirada
+--                   |   7    | Concluido
+--                   |   8    | Cancelado
+-- ------------------+--------+----------------------
+-- pagamento_compra  |   1    | Pix
+--                   |   2    | Cartao
+--                   |   3    | Dinheiro
 
--- funcionarios (cargo: Administrador, Atendente ou Cozinheiro)
+
+-- funcionarios
 CREATE TABLE funcionario (
     id_func       INT PRIMARY KEY AUTO_INCREMENT,
     nome_func     VARCHAR(100) NOT NULL,
     telefone_func VARCHAR(20)  NOT NULL,
     endereco_func VARCHAR(200),
-    cargo_func    VARCHAR(30)  NOT NULL, # Melhor seria usar "INT"
+    cargo_func    INT NOT NULL,
     login_func    VARCHAR(50)  NOT NULL,
     senha_func    VARCHAR(255) NOT NULL,
     status_func   BOOLEAN NOT NULL DEFAULT TRUE,
@@ -34,7 +65,7 @@ CREATE TABLE produto (
     id_prod        INT PRIMARY KEY AUTO_INCREMENT,
     nome_prod      VARCHAR(100) NOT NULL,
     descricao_prod VARCHAR(255),
-    categoria_prod VARCHAR(50)  NOT NULL,#Melhor seria usar "INT"
+    categoria_prod INT NOT NULL,
     valor_prod     DECIMAL(10,2) NOT NULL,
     ativo_prod     BOOLEAN NOT NULL DEFAULT TRUE
 );
@@ -64,9 +95,9 @@ CREATE TABLE compra (
     id_cliente        INT NOT NULL,
     id_func           INT,
     origem_compra     VARCHAR(10) NOT NULL,
-    tipo_compra       VARCHAR(10) NOT NULL, #melhor seria usar "INT"
-    status_compra     VARCHAR(30) NOT NULL DEFAULT 'Recebido',#melhor seria usar "INT"
-    pagamento_compra  VARCHAR(10) NOT NULL,#melhor seria usar "INT"
+    tipo_compra       INT NOT NULL,
+    status_compra     INT NOT NULL DEFAULT 1,
+    pagamento_compra  INT NOT NULL,
     troco_para_compra DECIMAL(10,2), # seria melhor usar um campo de anotações
     FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente),
     FOREIGN KEY (id_func)    REFERENCES funcionario(id_func)
@@ -84,19 +115,15 @@ CREATE TABLE compraxproduto (
 );
 
 -- USUARIOS 
--- administrador pode tudo (o % deixa conectar de qualquer maquina)
+-- o % deixa conectar de qualquer maquina
 -- atendente so le e mexe em cliente e pedido
 -- cozinheiro ve os pedidos e receitas, e so muda o status do pedido
 
-DROP USER IF EXISTS 'administrador'@'%';
 DROP USER IF EXISTS 'atendente'@'%';
 DROP USER IF EXISTS 'cozinheiro'@'%';
 
-CREATE USER 'administrador'@'%' IDENTIFIED BY 'Admin@123';
 CREATE USER 'atendente'@'%' IDENTIFIED BY 'Atende@123';
 CREATE USER 'cozinheiro'@'%' IDENTIFIED BY 'Cozinha@123';
-
-GRANT ALL PRIVILEGES ON Palladares.* TO 'administrador'@'%';
 
 GRANT SELECT ON Palladares.* TO 'atendente'@'%';
 GRANT INSERT, UPDATE ON Palladares.cliente TO 'atendente'@'%';
@@ -113,16 +140,16 @@ GRANT UPDATE (status_compra) ON Palladares.compra TO 'cozinheiro'@'%';
 
 -- senha com SHA2 pra nao ficar a senha pura no banco
 INSERT INTO funcionario (nome_func, telefone_func, endereco_func, cargo_func, login_func, senha_func) VALUES
-('Bernardo Pianecer', '47991000001', 'Rua das Flores, 10',   'Administrador', 'bernardo', SHA2('senha123', 256)),
-('Eduardo Dorneles',  '47991000002', 'Rua XV de Novembro, 20', 'Administrador', 'eduardo', SHA2('senha123', 256)),
-('Henrique Anacleto', '47991000003', 'Rua Blumenau, 30',     'Atendente',     'henrique', SHA2('senha123', 256)),
-('Ana Souza',         '47991000004', 'Rua Itajai, 40',       'Atendente',     'ana',      SHA2('senha123', 256)),
-('Bruno Lima',        '47991000005', 'Rua Joinville, 50',    'Atendente',     'bruno',    SHA2('senha123', 256)),
-('Carla Mendes',      '47991000006', 'Rua Gaspar, 60',       'Atendente',     'carla',    SHA2('senha123', 256)),
-('Diego Rocha',       '47991000007', 'Rua Pomerode, 70',     'Cozinheiro',    'diego',    SHA2('senha123', 256)),
-('Elisa Prado',       '47991000008', 'Rua Indaial, 80',      'Cozinheiro',    'elisa',    SHA2('senha123', 256)),
-('Fabio Costa',       '47991000009', 'Rua Timbo, 90',        'Cozinheiro',    'fabio',    SHA2('senha123', 256)),
-('Gabi Nunes',        '47991000010', 'Rua Brusque, 100',     'Cozinheiro',    'gabi',     SHA2('senha123', 256));
+('Bernardo Pianecer', '47991000001', 'Rua das Flores, 10',   1, 'bernardo', SHA2('senha123', 256)),
+('Eduardo Dorneles',  '47991000002', 'Rua XV de Novembro, 20', 1, 'eduardo', SHA2('senha123', 256)),
+('Henrique Anacleto', '47991000003', 'Rua Blumenau, 30',     2, 'henrique', SHA2('senha123', 256)),
+('Ana Souza',         '47991000004', 'Rua Itajai, 40',       2, 'ana',      SHA2('senha123', 256)),
+('Bruno Lima',        '47991000005', 'Rua Joinville, 50',    2, 'bruno',    SHA2('senha123', 256)),
+('Carla Mendes',      '47991000006', 'Rua Gaspar, 60',       2, 'carla',    SHA2('senha123', 256)),
+('Diego Rocha',       '47991000007', 'Rua Pomerode, 70',     3, 'diego',    SHA2('senha123', 256)),
+('Elisa Prado',       '47991000008', 'Rua Indaial, 80',      3, 'elisa',    SHA2('senha123', 256)),
+('Fabio Costa',       '47991000009', 'Rua Timbo, 90',        3, 'fabio',    SHA2('senha123', 256)),
+('Gabi Nunes',        '47991000010', 'Rua Brusque, 100',     3, 'gabi',     SHA2('senha123', 256));
 
 INSERT INTO cliente (nome_cliente, telefone_cliente, endereco_cliente) VALUES
 ('Mariana Alves',  '47998000001', 'Rua A, 11 - Centro'),
@@ -149,16 +176,16 @@ INSERT INTO ingredientes (descricao_ingre, quantidade_ingre, unidade_ingre) VALU
 ('Palmito',             2, 'kg');
 
 INSERT INTO produto (nome_prod, descricao_prod, categoria_prod, valor_prod) VALUES
-('X-Burguer',      'Pao, hamburguer, presunto e queijo.',                 'Lanches Tradicionais', 15.00),
-('X-Bacon',        'Pao, bacon, ovo, hamburguer, presunto e queijo.',     'Lanches Tradicionais', 29.00),
-('X-Salada',       'Pao, hamburguer, presunto, queijo, alface e tomate.', 'Lanches Tradicionais', 19.00),
-('Misto Quente',   'Pao, presunto e queijo.',                             'Lanches Tradicionais', 13.00),
-('X-Chocolate',    'Pao, chocolate preto ou branco e queijo.',            'Lanches Doces',        22.00),
-('Pizza Pequena',  '2 sabores, 8 fatias, 30 cm.',                         'Pizzas',               67.90),
-('Pizza Grande',   '4 sabores, 16 fatias, 40 cm.',                        'Pizzas',               97.90),
-('Fritas',         'Batata frita crocante e salgada.',                    'Porcoes',              27.00),
-('Coca-Cola 2L',   'Refrigerante 2 litros.',                              'Bebidas',              19.00),
-('Acai na Taca',   'Somente acai.',                                       'Sobremesas',           22.00);
+('X-Burguer',      'Pao, hamburguer, presunto e queijo.',                 1, 15.00),
+('X-Bacon',        'Pao, bacon, ovo, hamburguer, presunto e queijo.',     1, 29.00),
+('X-Salada',       'Pao, hamburguer, presunto, queijo, alface e tomate.', 1, 19.00),
+('Misto Quente',   'Pao, presunto e queijo.',                             1, 13.00),
+('X-Chocolate',    'Pao, chocolate preto ou branco e queijo.',            2, 22.00),
+('Pizza Pequena',  '2 sabores, 8 fatias, 30 cm.',                         3, 67.90),
+('Pizza Grande',   '4 sabores, 16 fatias, 40 cm.',                        3, 97.90),
+('Fritas',         'Batata frita crocante e salgada.',                    4, 27.00),
+('Coca-Cola 2L',   'Refrigerante 2 litros.',                              5, 19.00),
+('Acai na Taca',   'Somente acai.',                                       6, 22.00);
 
 
 -- qtd_usada em kg ou unidade, palmito nao entra em nenhuma receita
@@ -174,18 +201,18 @@ INSERT INTO produtoxingrediente (id_prod, id_ingre, qtd_usada) VALUES
 (7, 7, 1),
 (8, 8, 0.40);
 
--- origem: site ou balcao / tipo: entrega ou retirada
+-- origem: site ou balcao / tipo, status e pagamento: ver tabela de codigos la em cima
 INSERT INTO compra (data_compra, id_cliente, id_func, origem_compra, tipo_compra, status_compra, pagamento_compra, troco_para_compra) VALUES
-('2026-11-03 19:05:00', 1, NULL, 'site',   'entrega',  'Concluido',           'pix',      NULL),
-('2026-11-03 19:20:00', 2, 3,    'balcao', 'retirada', 'Concluido',           'dinheiro', 50.00),
-('2026-11-04 18:45:00', 3, NULL, 'site',   'entrega',  'Concluido',           'cartao',   NULL),
-('2026-11-04 20:10:00', 4, 4,    'balcao', 'retirada', 'Concluido',           'pix',      NULL),
-('2026-11-05 19:00:00', 5, NULL, 'site',   'retirada', 'Pronto',              'dinheiro', 100.00),
-('2026-11-05 19:30:00', 6, 5,    'balcao', 'entrega',  'Em preparacao',       'cartao',   NULL),
-('2026-11-05 19:40:00', 7, NULL, 'site',   'entrega',  'Confirmado',          'pix',      NULL),
-('2026-11-05 19:50:00', 8, 6,    'balcao', 'retirada', 'Recebido',            'dinheiro', 30.00),
-('2026-11-05 20:00:00', 9, NULL, 'site',   'entrega',  'Recebido',            'cartao',   NULL),
-('2026-11-05 20:05:00', 1, NULL, 'site',   'entrega',  'Cancelado',           'pix',      NULL);
+('2026-11-03 19:05:00', 1, NULL, 'site',   1, 7, 1, NULL),
+('2026-11-03 19:20:00', 2, 3,    'balcao', 2, 7, 3, 50.00),
+('2026-11-04 18:45:00', 3, NULL, 'site',   1, 7, 2, NULL),
+('2026-11-04 20:10:00', 4, 4,    'balcao', 2, 7, 1, NULL),
+('2026-11-05 19:00:00', 5, NULL, 'site',   2, 4, 3, 100.00),
+('2026-11-05 19:30:00', 6, 5,    'balcao', 1, 3, 2, NULL),
+('2026-11-05 19:40:00', 7, NULL, 'site',   1, 2, 1, NULL),
+('2026-11-05 19:50:00', 8, 6,    'balcao', 2, 1, 3, 30.00),
+('2026-11-05 20:00:00', 9, NULL, 'site',   1, 1, 2, NULL),
+('2026-11-05 20:05:00', 1, NULL, 'site',   1, 8, 1, NULL);
 
 -- pedido 10 ficou sem item (foi cancelado)
 INSERT INTO compraxproduto (id_compra, id_prod, qtd_prod, valor_unitario, observacao) VALUES
@@ -246,12 +273,12 @@ UPDATE produtoxingrediente SET qtd_usada = 0.04 WHERE id_prod = 3 AND id_ingre =
 UPDATE produtoxingrediente SET qtd_usada = 0.05 WHERE id_prod = 4 AND id_ingre = 4;
 UPDATE produtoxingrediente SET qtd_usada = 0.50 WHERE id_prod = 8 AND id_ingre = 8;
 
--- status dos pedidos
-UPDATE compra SET status_compra = 'Aguardando retirada' WHERE id_compra = 5;
-UPDATE compra SET status_compra = 'Pronto'              WHERE id_compra = 6;
-UPDATE compra SET status_compra = 'Em preparacao'       WHERE id_compra = 7;
-UPDATE compra SET status_compra = 'Confirmado'          WHERE id_compra = 8;
-UPDATE compra SET status_compra = 'Confirmado'          WHERE id_compra = 9;
+-- status dos pedidos (numeros da tabela de codigos)
+UPDATE compra SET status_compra = 6 WHERE id_compra = 5;
+UPDATE compra SET status_compra = 4 WHERE id_compra = 6;
+UPDATE compra SET status_compra = 3 WHERE id_compra = 7;
+UPDATE compra SET status_compra = 2 WHERE id_compra = 8;
+UPDATE compra SET status_compra = 2 WHERE id_compra = 9;
 
 -- mudanca nos itens
 UPDATE compraxproduto SET qtd_prod = 2 WHERE id_compra = 1 AND id_prod = 9;
@@ -272,4 +299,48 @@ DELETE FROM cliente             WHERE id_cliente = 10;
 DELETE FROM funcionario         WHERE id_func = 10;
 
 
--- criar uma historia completa
+-- HISTORIA COMPLETA 
+-- o Carlos vira o cliente 11 porque o 10 foi apagado no DELETE
+
+-- inicio: se cadastra no app e pede pelo site pra entrega, troco pra 150
+INSERT INTO cliente (nome_cliente, telefone_cliente, endereco_cliente) VALUES
+('Carlos Eduardo Silva', '47998000011', 'Rua Sete de Setembro, 500 - Centro');
+
+INSERT INTO compra (data_compra, id_cliente, id_func, origem_compra, tipo_compra, status_compra, pagamento_compra, troco_para_compra) VALUES
+('2026-11-20 19:30:00', 11, NULL, 'site', 1, 1, 3, 150.00);
+
+INSERT INTO compraxproduto (id_compra, id_prod, qtd_prod, valor_unitario, observacao) VALUES
+(11, 7, 1, 97.90, 'Sabores: Calabresa, Frango, Portuguesa e Quatro Queijos'),
+(11, 9, 1, 19.00, NULL);
+
+-- meio: confirmado, ele pede uma fritas a mais, vai pra cozinha e sai do estoque
+UPDATE compra SET status_compra = 2 WHERE id_compra = 11;
+
+INSERT INTO compraxproduto (id_compra, id_prod, qtd_prod, valor_unitario, observacao) VALUES
+(11, 8, 1, 27.00, NULL);
+
+UPDATE compra SET status_compra = 3 WHERE id_compra = 11;
+UPDATE ingredientes SET quantidade_ingre = quantidade_ingre - 1    WHERE id_ingre = 7;
+UPDATE ingredientes SET quantidade_ingre = quantidade_ingre - 0.40 WHERE id_ingre = 8;
+UPDATE compra SET status_compra = 4 WHERE id_compra = 11;
+UPDATE compra SET status_compra = 5 WHERE id_compra = 11;
+
+-- fim: recebeu e concluiu
+UPDATE compra SET status_compra = 7 WHERE id_compra = 11;
+
+-- semana depois volta no balcao, atendido pelo Henrique, retira e paga no pix
+INSERT INTO compra (data_compra, id_cliente, id_func, origem_compra, tipo_compra, status_compra, pagamento_compra, troco_para_compra) VALUES
+('2026-11-27 20:00:00', 11, 3, 'balcao', 2, 1, 1, NULL);
+
+INSERT INTO compraxproduto (id_compra, id_prod, qtd_prod, valor_unitario, observacao) VALUES
+(12, 2, 2, 31.00, 'Um sem ovo');
+
+UPDATE compra SET status_compra = 4 WHERE id_compra = 12;
+UPDATE compra SET status_compra = 6 WHERE id_compra = 12;
+UPDATE compra SET status_compra = 7 WHERE id_compra = 12;
+
+-- resumo do Carlos
+SELECT * FROM cliente WHERE id_cliente = 11;
+SELECT * FROM compra WHERE id_cliente = 11;
+SELECT * FROM compraxproduto WHERE id_compra IN (11, 12);
+SELECT id_compra, SUM(qtd_prod * valor_unitario) AS total FROM compraxproduto WHERE id_compra IN (11, 12) GROUP BY id_compra;
