@@ -1,5 +1,5 @@
 -- teste do usuario cozinheiro
-
+USE Palladares;
 
 -- PODE ver os pedidos que tao na fila (2 confirmado e 3 em preparacao)
 SELECT * FROM compra WHERE status_compra IN (2, 3);

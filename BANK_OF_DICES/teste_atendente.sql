@@ -1,5 +1,5 @@
 -- teste do usuario atendente
-
+USE Palladares;
 
 -- PODE ver o cardapio e os pedidos
 SELECT * FROM produto;

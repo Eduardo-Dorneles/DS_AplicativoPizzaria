@@ -1,31 +1,37 @@
 import mysql.connector
 from pathlib import Path
 
+# troca aqui pra rodar com outro usuario
+USUARIO = "root"
+SENHA = "123456"
+ARQUIVO = "database.sql"
+
+# atendente: "Atende@123" e "teste_atendente.sql"
+# cozinheiro: "Cozinha@123" e "teste_cozinheiro.sql"
+
 conexao = mysql.connector.connect(
     host="localhost",
     port=3306,
-    user="root",
-    password="123456"
+    user=USUARIO,
+    password=SENHA
 )
 
 cursor = conexao.cursor()
 
-caminho_sql = Path(__file__).parent / "database.sql"
-
-with open(caminho_sql, "r", encoding="utf-8") as arquivo:
+with open(Path(__file__).parent / ARQUIVO, "r", encoding="utf-8") as arquivo:
     sql = arquivo.read()
 
 for comando in sql.split(";"):
     comando = comando.strip()
 
     if comando:
-        cursor.execute(comando)
-
-        # so busca resultado quando o comando retorna linhas (ex.: SELECT);
-        # CREATE/USE/INSERT nao retornam nada
-        if cursor.with_rows:
-            for linha in cursor.fetchall():
-                print(linha)
+        try:
+            cursor.execute(comando)
+            if cursor.with_rows:
+                for linha in cursor.fetchall():
+                    print(linha)
+        except mysql.connector.Error as erro:
+            print("NEGADO:", erro.msg)
 
 conexao.commit()
 
