@@ -13,6 +13,7 @@
     <script src="js/painel.js" defer></script>
 </head>
 <body class="painel-body" data-pagina="adm">
+
     <div class="painel-layout">
         <aside class="painel-sidebar">
             <div class="marca-painel">
@@ -98,5 +99,32 @@
             </section>
         </main>
     </div>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getFirestore, collection, addDoc, onSnapshot,
+    doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCVPhX343KNSZgi4fp_WlBsBLohFowWXRQ",
+    authDomain: "pizzaria-web-5541b.firebaseapp.com",
+    projectId: "pizzaria-web-5541b",
+    storageBucket: "pizzaria-web-5541b.firebasestorage.app",
+    messagingSenderId: "981557780197",
+    appId: "1:981557780197:web:d883c790d9f2d994f6fe0c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.db = db;
+  window.fb = {
+    collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc,
+    query, orderBy, serverTimestamp
+  };
+
+  console.log("Firebase conectado:", firebaseConfig.projectId);
+</script>
 </body>
 </html>
