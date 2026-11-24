@@ -136,30 +136,98 @@ const banco = {
     ]
 };
 
-// Busca os pedidos já salvos. Se ainda não houver nenhum, usa os exemplos para a tela não começar vazia.
-function buscarPedidos() {
-    const dadosSalvos = localStorage.getItem("palladares_pedidos");
+// =====================================================
+// PEDIDOS — sincronizados com o Firestore
+// =====================================================
 
-    if (dadosSalvos) {
-        return JSON.parse(dadosSalvos);
+// Cópia local dos pedidos, mantida em dia pelo Firestore.
+let pedidosCache = [];
+let firestorePronto = false;
+
+// Escuta a coleção "pedidos" em tempo real.
+// Qualquer pedido criado por qualquer pessoa aparece aqui em segundos.
+function iniciarSincronizacao() {
+    if (!window.fb || !window.db) {
+        console.warn("Firebase ainda não carregou. Tentando de novo em 300ms...");
+        setTimeout(iniciarSincronizacao, 300);
+        return;
     }
 
-    localStorage.setItem("palladares_pedidos", JSON.stringify(banco.pedidosIniciais));
-    return banco.pedidosIniciais;
+    const { collection, onSnapshot, query, orderBy } = window.fb;
+
+    onSnapshot(
+        query(collection(window.db, "pedidos"), orderBy("id", "asc")),
+        (snapshot) => {
+            pedidosCache = [];
+            snapshot.forEach((docSnap) => {
+                pedidosCache.push({ docId: docSnap.id, ...docSnap.data() });
+            });
+            firestorePronto = true;
+            redesenharTelaAtual();
+        },
+        (erro) => {
+            console.error("Erro ao sincronizar pedidos:", erro);
+        }
+    );
 }
 
-// Guarda a lista atual para que as outras telas encontrem os mesmos pedidos.
+// Redesenha a tela que está aberta, sem precisar recarregar a página.
+function redesenharTelaAtual() {
+    const pagina = document.body.dataset.pagina;
+    if (pagina === "adm" && typeof atualizarAdministrador === "function") atualizarAdministrador();
+    if (pagina === "cozinha" && typeof atualizarCozinha === "function") atualizarCozinha();
+    if (pagina === "atendente" && typeof atualizarAtendente === "function") atualizarAtendente();
+}
+
+// Mantém a mesma assinatura que o painel.js já usa.
+function buscarPedidos() {
+    return pedidosCache;
+}
+
+// Grava no Firestore. Recebe a lista inteira e aplica as diferenças.
 function salvarPedidos(pedidos) {
-    localStorage.setItem("palladares_pedidos", JSON.stringify(pedidos));
+    if (!window.fb || !window.db) {
+        console.warn("Firestore não disponível.");
+        return;
+    }
+
+    const { collection, addDoc, doc, updateDoc, deleteDoc, serverTimestamp } = window.fb;
+    const colecao = collection(window.db, "pedidos");
+
+    // Pedidos novos (sem docId) são criados.
+    pedidos.forEach((pedido) => {
+        if (!pedido.docId) {
+            const { docId, ...dados } = pedido;
+            addDoc(colecao, { ...dados, criadoEm: serverTimestamp() })
+                .then((ref) => {
+                    pedido.docId = ref.id;
+                })
+                .catch((e) => console.error("Erro ao criar pedido:", e));
+        } else {
+            const { docId, ...dados } = pedido;
+            updateDoc(doc(window.db, "pedidos", docId), dados)
+                .catch((e) => console.error("Erro ao atualizar pedido:", e));
+        }
+    });
+
+    // Pedidos que sumiram da lista são excluídos.
+    const idsAtuais = pedidos.map((p) => p.docId).filter(Boolean);
+    pedidosCache.forEach((antigo) => {
+        if (antigo.docId && !idsAtuais.includes(antigo.docId)) {
+            deleteDoc(doc(window.db, "pedidos", antigo.docId))
+                .catch((e) => console.error("Erro ao excluir pedido:", e));
+        }
+    });
 }
 
-// Usa o maior número já existente e soma um, para cada pedido ganhar seu próprio número.
+// Continua igual: gera o próximo número de pedido.
 function proximoId(pedidos) {
     let maior = 1000;
-
     for (let i = 0; i < pedidos.length; i++) {
         if (pedidos[i].id > maior) maior = pedidos[i].id;
     }
-
     return maior + 1;
 }
+
+// Inicia a sincronização assim que o arquivo carrega.
+iniciarSincronizacao();

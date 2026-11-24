@@ -252,3 +252,29 @@ function iniciarPainel() {
 
 // Espera o HTML carregar antes de conferir o acesso e montar o painel.
 document.addEventListener("DOMContentLoaded", iniciarPainel);
+function iniciarPainel() {
+    const pagina = document.body.dataset.pagina;
+
+    let usuario = null;
+    if (pagina === "adm") {
+        usuario = protegerPagina("Administrador");
+    } else if (pagina === "cozinha") {
+        usuario = protegerPagina("Cozinheiro");
+    } else if (pagina === "atendente") {
+        usuario = protegerPagina("Atendente");
+    }
+
+    if (!usuario) return;
+
+    mostrarUsuarioNaTela(usuario);
+    bloquearBotaoVoltar();
+
+    if (pagina === "adm") atualizarAdministrador();
+    if (pagina === "cozinha") atualizarCozinha();
+    if (pagina === "atendente") atualizarAtendente();
+
+    // NOVO: força um redesenho quando o Firestore terminar de carregar
+    if (typeof iniciarSincronizacao === "function") {
+        iniciarSincronizacao();
+    }
+}
